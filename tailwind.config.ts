@@ -11,6 +11,39 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        brand: 'var(--brand)'
+      },
+      backgroundColor: {
+        primary: 'var(--bg-primary)',
+        secondary: 'var(--bg-secondary)',
+        tertiary: 'var(--bg-tertiary)',
+        brand: 'var(--brand)'
+      },
+      textColor: {
+        primary: 'var(--text-primary)',
+        secondary: 'var(--text-secondary)',
+        tertiary: 'var(--text-tertiary)',
+        error: 'var(--text-error)',
+        warning: 'var(--text-warning)',
+        success: 'var(--text-success)',
+        brand: 'var(--brand)'
+      },
+      borderColor: {
+        main: 'var(--border-main)',
+        success: 'var(--success)',
+        warning: 'var(--warning)',
+        error: 'var(--border-error)',
+        brand: 'var(--brand)'
+      },
+      outlineColor: {
+        success: 'var(--success)',
+        warning: 'var(--warning)',
+        error: 'var(--outline-error)',
+        brand: 'var(--brand)'
+
+      },
+      placeholderColor: {
+        main: 'var(--text-placeholder)'
       },
     },
   },

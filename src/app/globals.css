@@ -3,19 +3,78 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Background colors */
+  --bg-primary: #ffffff; /* Primary background color */
+  --bg-secondary: #f7f7f7; /* Secondary background color */
+  --bg-tertiary: #eaeaea; /* Tertiary background color */
+  --bg-brand: #248721;
+
+  /* Text colors */
+  --text-primary: #171717; /* Primary text color */
+  --text-secondary: #4a4a4a; /* Secondary text color */
+  --text-tertiary: #7a7a7a; /* Tertiary text color */
+  --text-error: #d32f2f; /* Error text color */
+  --text-warning: #f57c00; /* Warning text color */
+  --text-success: #388e3c; /* Success text color */
+  --text-placeholder: #7a7a7a; /* Placeholder text color */
+  --text-brand: #248721;
+
+  /* Border colors */
+  --border-main: #e0e0e0; /* Primary border color */
+  --border-success: #388e3c;
+  --border-warning: #f57c00;
+  --border-error: #d32f2f; /* Error border color */
+  --border-brnad: #248721;
+
+  /* Outline colors */
+  --outline-success: #388e3c;
+  --outline-warning: #f57c00;
+  --outline-error: #d32f2f; /* Error border color */
+  --outline-brnad: #248721;
+
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Background colors */
+    --bg-primary: #111111; /* Primary background color for dark mode */
+    --bg-secondary: #1a1a1a; /* Secondary background color for dark mode */
+    --bg-tertiary: #1e1e1e; /* Tertiary background color for dark mode */
+    --bg-brand: #284721;
+
+    /* Text colors */
+    --text-primary: #ededed; /* Primary text color for dark mode */
+    --text-secondary: #bcbcbc; /* Secondary text color for dark mode */
+    --text-tertiary: #8a8a8a; /* Tertiary text color for dark mode */
+    --text-error: #ef5350; /* Error text color for dark mode */
+    --text-warning: #ffa726; /* Warning text color for dark mode */
+    --text-success: #66bb6a; /* Success text color for dark mode */
+    --text-placeholder: #3d3d3d; /* Placeholder text color for dark mode */
+    --text-brand: #248721;
+
+    /* Border colors */
+    --border-main: #363636; /* Primary border color for dark mode */
+    --border-success: #388e3c;
+    --border-warning: #f57c00;
+    --border-error: #d32f2f; /* Error border color */
+    --border-brnad: #248721;
+
+    /* Outline colors */
+    --outline-success: #388e3c;
+    --outline-warning: #f57c00;
+    --outline-error: #d32f2f; /* Error border color */
+    --outline-brnad: #248721;
   }
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none; /* für IE und Edge */
+  scrollbar-width: none; /* für Firefox */
 }

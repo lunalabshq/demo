@@ -11,13 +11,17 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        brand: 'var(--brand)'
+        brand: 'var(--bg-brand)'
       },
       backgroundColor: {
         primary: 'var(--bg-primary)',
         secondary: 'var(--bg-secondary)',
         tertiary: 'var(--bg-tertiary)',
-        brand: 'var(--brand)'
+        error: 'var(--bg-error)',
+        warning: 'var(--bg-warning)',
+        success: 'var(--bg-success)',
+        info: 'var(--bg-info)',
+        brand: 'var(--bg-brand)'
       },
       textColor: {
         primary: 'var(--text-primary)',
@@ -26,21 +30,23 @@ export default {
         error: 'var(--text-error)',
         warning: 'var(--text-warning)',
         success: 'var(--text-success)',
-        brand: 'var(--brand)'
+        info: 'var(--text-info)',
+        brand: 'var(--text-brand)'
       },
       borderColor: {
         main: 'var(--border-main)',
-        success: 'var(--success)',
-        warning: 'var(--warning)',
+        success: 'var(--border-success)',
+        warning: 'var(--border-warning)',
         error: 'var(--border-error)',
-        brand: 'var(--brand)'
+        info: 'var(--border-info)',
+        brand: 'var(--border-brand)'
       },
       outlineColor: {
-        success: 'var(--success)',
-        warning: 'var(--warning)',
+        success: 'var(--outline-success)',
+        warning: 'var(--outline-warning)',
         error: 'var(--outline-error)',
-        brand: 'var(--brand)'
-
+        info: 'var(--outline-info)',
+        brand: 'var(--outline-brand)'
       },
       placeholderColor: {
         main: 'var(--text-placeholder)'

@@ -8,6 +8,10 @@
   --bg-secondary: #f7f7f7; /* Secondary background color */
   --bg-tertiary: #eaeaea; /* Tertiary background color */
   --bg-brand: #248721;
+  --bg-error: #d32f2f; /* Error text color */
+  --bg-warning: #f57c00; /* Warning text color */
+  --bg-success: #388e3c; /* Success text color */
+  --bg-info: #2982f6; /* Info text color */
 
   /* Text colors */
   --text-primary: #171717; /* Primary text color */
@@ -16,6 +20,7 @@
   --text-error: #d32f2f; /* Error text color */
   --text-warning: #f57c00; /* Warning text color */
   --text-success: #388e3c; /* Success text color */
+  --text-info: #2982f6; /* Info text color */
   --text-placeholder: #7a7a7a; /* Placeholder text color */
   --text-brand: #248721;
 
@@ -24,13 +29,15 @@
   --border-success: #388e3c;
   --border-warning: #f57c00;
   --border-error: #d32f2f; /* Error border color */
-  --border-brnad: #248721;
+  --border-info: #2982f6; /* Info border color */
+  --border-brand: #248721;
 
   /* Outline colors */
   --outline-success: #388e3c;
   --outline-warning: #f57c00;
   --outline-error: #d32f2f; /* Error border color */
-  --outline-brnad: #248721;
+  --outline-info: #2982f6; /* Info border color */
+  --outline-brand: #248721;
 
 }
 
@@ -41,6 +48,10 @@
     --bg-secondary: #1a1a1a; /* Secondary background color for dark mode */
     --bg-tertiary: #1e1e1e; /* Tertiary background color for dark mode */
     --bg-brand: #284721;
+    --bg-error: #d32f2f; /* Error text color */
+    --bg-warning: #f57c00; /* Warning text color */
+    --bg-success: #388e3c; /* Success text color */
+    --bg-info: #2982f6; /* Info text color */
 
     /* Text colors */
     --text-primary: #ededed; /* Primary text color for dark mode */
@@ -49,6 +60,7 @@
     --text-error: #ef5350; /* Error text color for dark mode */
     --text-warning: #ffa726; /* Warning text color for dark mode */
     --text-success: #66bb6a; /* Success text color for dark mode */
+    --text-info: #2982f6; /* Info text color for dark mode */
     --text-placeholder: #3d3d3d; /* Placeholder text color for dark mode */
     --text-brand: #248721;
 
@@ -57,18 +69,22 @@
     --border-success: #388e3c;
     --border-warning: #f57c00;
     --border-error: #d32f2f; /* Error border color */
-    --border-brnad: #248721;
+    --border-info: #2982f6; /* Info border color */
+    --border-brand: #248721;
 
     /* Outline colors */
     --outline-success: #388e3c;
     --outline-warning: #f57c00;
     --outline-error: #d32f2f; /* Error border color */
-    --outline-brnad: #248721;
+    --outline-info: #2982f6; /* Info border color */
+    --outline-brand: #248721;
   }
 }
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  body {
+    @apply bg-secondary text-secondary;
+  }
 }
 
 .scrollbar-hide::-webkit-scrollbar {

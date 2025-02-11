@@ -3,6 +3,7 @@ import type { ReactNode } from "react"
 import {cn} from "@/lib/utils"
 import {Check, ChevronRightIcon} from "lucide-react"
 import { CONTAINER_STYLES } from "@/lib/consts"
+import KeyboardShortcut from "@/components/ui/KeyboardShortcut"
 
 type MenuItem = {
     label: string
@@ -23,7 +24,7 @@ function ContextMenuItem({ item }: ContextMenuItemProps) {
         >
             {item.icon}
             <p>{item.label}</p>
-            {item.shortcut && <p>{item.shortcut}</p>}
+            {item.shortcut && <KeyboardShortcut keyString={item.shortcut}/>}
 
         </ContextMenuPrimitive.Item>
     )

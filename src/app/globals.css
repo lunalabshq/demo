@@ -4,80 +4,79 @@
 
 :root {
   /* Background colors */
-  --bg-primary: #ffffff; /* Primary background color */
-  --bg-secondary: #f7f7f7; /* Secondary background color */
-  --bg-tertiary: #eaeaea; /* Tertiary background color */
-  --bg-brand: #248721;
-  --bg-error: #d32f2f; /* Error text color */
-  --bg-warning: #f57c00; /* Warning text color */
-  --bg-success: #388e3c; /* Success text color */
-  --bg-info: #2982f6; /* Info text color */
+  --bg-primary: 0 0% 100%;            /* Primary background color (war #ffffff */
+  --bg-secondary: 0 0% 97%;           /* Secondary background color (war #f7f7f7 */
+  --bg-tertiary: 0 0% 92%;            /* Tertiary background color (war #eaeaea */
+  --bg-brand: 136 68% 28%;            /* (war #248721 */
+  --bg-error: 0 65% 51%;              /* (war #d32f2f */
+  --bg-warning: 30 100% 48%;          /* (war #f57c00 */
+  --bg-success: 123 43% 39%;          /* (war #388e3c */
+  --bg-info: 214 92% 56%;             /* (war #2982f6 */
 
   /* Text colors */
-  --text-primary: #171717; /* Primary text color */
-  --text-secondary: #4a4a4a; /* Secondary text color */
-  --text-tertiary: #7a7a7a; /* Tertiary text color */
-  --text-error: #d32f2f; /* Error text color */
-  --text-warning: #f57c00; /* Warning text color */
-  --text-success: #388e3c; /* Success text color */
-  --text-info: #2982f6; /* Info text color */
-  --text-placeholder: #7a7a7a; /* Placeholder text color */
-  --text-brand: #248721;
+  --text-primary: 0 0% 9%;            /* (war #171717 */
+  --text-secondary: 0 0% 29%;         /* (war #4a4a4a */
+  --text-tertiary: 0 0% 48%;          /* (war #7a7a7a */
+  --text-error: 0 65% 51%;            /* (war #d32f2f */
+  --text-warning: 30 100% 48%;        /* (war #f57c00 */
+  --text-success: 123 43% 39%;        /* (war #388e3c */
+  --text-info: 214 92% 56%;           /* (war #2982f6 */
+  --text-placeholder: 0 0% 48%;       /* (war #7a7a7a */
+  --text-brand: 136 68% 28%;          /* (war #248721 */
 
   /* Border colors */
-  --border-main: #e0e0e0; /* Primary border color */
-  --border-success: #388e3c;
-  --border-warning: #f57c00;
-  --border-error: #d32f2f; /* Error border color */
-  --border-info: #2982f6; /* Info border color */
-  --border-brand: #248721;
+  --border-main: 0 0% 88%;            /* Primary border color (war #e0e0e0 */
+  --border-success: 123 43% 39%;      /* (war #388e3c */
+  --border-warning: 30 100% 48%;      /* (war #f57c00 */
+  --border-error: 0 65% 51%;          /* (war #d32f2f */
+  --border-info: 214 92% 56%;         /* (war #2982f6 */
+  --border-brand: 136 68% 28%;        /* (war #248721 */
 
   /* Outline colors */
-  --outline-success: #388e3c;
-  --outline-warning: #f57c00;
-  --outline-error: #d32f2f; /* Error border color */
-  --outline-info: #2982f6; /* Info border color */
-  --outline-brand: #248721;
-
+  --outline-success: 123 43% 39%;     /* (war #388e3c */
+  --outline-warning: 30 100% 48%;     /* (war #f57c00 */
+  --outline-error: 0 65% 51%;         /* (war #d32f2f */
+  --outline-info: 214 92% 56%;         /* (war #2982f6 */
+  --outline-brand: 136 68% 28%;        /* (war #248721 */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     /* Background colors */
-    --bg-primary: #111111; /* Primary background color for dark mode */
-    --bg-secondary: #1a1a1a; /* Secondary background color for dark mode */
-    --bg-tertiary: #1e1e1e; /* Tertiary background color for dark mode */
-    --bg-brand: #284721;
-    --bg-error: #d32f2f; /* Error text color */
-    --bg-warning: #f57c00; /* Warning text color */
-    --bg-success: #388e3c; /* Success text color */
-    --bg-info: #2982f6; /* Info text color */
+    --bg-primary: 0 0% 7%;            /* Primary background color for dark mode (war #111111 */
+    --bg-secondary: 0 0% 10%;         /* Secondary background color for dark mode (war #1a1a1a */
+    --bg-tertiary: 0 0% 12%;          /* Tertiary background color for dark mode (war #1e1e1e */
+    --bg-brand: 136 68% 28%;          /* (war #284721 */
+    --bg-error: 0 65% 51%;            /* (war #d32f2f */
+    --bg-warning: 30 100% 48%;        /* (war #f57c00 */
+    --bg-success: 123 43% 39%;        /* (war #388e3c */
+    --bg-info: 214 92% 56%;           /* (war #2982f6 */
 
     /* Text colors */
-    --text-primary: #ededed; /* Primary text color for dark mode */
-    --text-secondary: #bcbcbc; /* Secondary text color for dark mode */
-    --text-tertiary: #8a8a8a; /* Tertiary text color for dark mode */
-    --text-error: #ef5350; /* Error text color for dark mode */
-    --text-warning: #ffa726; /* Warning text color for dark mode */
-    --text-success: #66bb6a; /* Success text color for dark mode */
-    --text-info: #2982f6; /* Info text color for dark mode */
-    --text-placeholder: #3d3d3d; /* Placeholder text color for dark mode */
-    --text-brand: #248721;
+    --text-primary: 0 0% 93%;         /* (war #ededed */
+    --text-secondary: 0 0% 74%;       /* (war #bcbcbc */
+    --text-tertiary: 0 0% 54%;        /* (war #8a8a8a */
+    --text-error: 1 83% 63%;          /* (war #ef5350 */
+    --text-warning: 36 100% 57%;       /* (war #ffa726 */
+    --text-success: 123 38% 57%;       /* (war #66bb6a */
+    --text-info: 214 92% 56%;          /* (war #2982f6 */
+    --text-placeholder: 0 0% 24%;      /* (war #3d3d3d */
+    --text-brand: 136 68% 28%;         /* (war #248721 */
 
     /* Border colors */
-    --border-main: #363636; /* Primary border color for dark mode */
-    --border-success: #388e3c;
-    --border-warning: #f57c00;
-    --border-error: #d32f2f; /* Error border color */
-    --border-info: #2982f6; /* Info border color */
-    --border-brand: #248721;
+    --border-main: 0 0% 21%;          /* Primary border color for dark mode (war #363636 */
+    --border-success: 123 43% 39%;     /* (war #388e3c */
+    --border-warning: 30 100% 48%;     /* (war #f57c00 */
+    --border-error: 0 65% 51%;         /* (war #d32f2f */
+    --border-info: 214 92% 56%;        /* (war #2982f6 */
+    --border-brand: 136 68% 28%;       /* (war #248721 */
 
     /* Outline colors */
-    --outline-success: #388e3c;
-    --outline-warning: #f57c00;
-    --outline-error: #d32f2f; /* Error border color */
-    --outline-info: #2982f6; /* Info border color */
-    --outline-brand: #248721;
+    --outline-success: 123 43% 39%;    /* (war #388e3c */
+    --outline-warning: 30 100% 48%;    /* (war #f57c00 */
+    --outline-error: 0 65% 51%;        /* (war #d32f2f */
+    --outline-info: 214 92% 56%;        /* (war #2982f6 */
+    --outline-brand: 136 68% 28%;       /* (war #248721 */
   }
 }
 
@@ -92,5 +91,5 @@
 }
 .scrollbar-hide {
   -ms-overflow-style: none; /* für IE und Edge */
-  scrollbar-width: none; /* für Firefox */
+  scrollbar-width: none;    /* für Firefox */
 }

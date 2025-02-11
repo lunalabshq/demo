@@ -1,55 +1,60 @@
 import type { Config } from "tailwindcss";
 
+function withOpacity(variableName: string) {
+  return `hsl(var(${variableName}) / <alpha-value>)`;
+}
+
 export default {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/stories/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-        brand: 'var(--bg-brand)'
+        background: withOpacity('--bg-primary'),
+        foreground: withOpacity('--bg-secondary'),
+        brand: withOpacity('--bg-brand'),
       },
       backgroundColor: {
-        primary: 'var(--bg-primary)',
-        secondary: 'var(--bg-secondary)',
-        tertiary: 'var(--bg-tertiary)',
-        error: 'var(--bg-error)',
-        warning: 'var(--bg-warning)',
-        success: 'var(--bg-success)',
-        info: 'var(--bg-info)',
-        brand: 'var(--bg-brand)'
+        primary: withOpacity('--bg-primary'),
+        secondary: withOpacity('--bg-secondary'),
+        tertiary: withOpacity('--bg-tertiary'),
+        error: withOpacity('--bg-error'),
+        warning: withOpacity('--bg-warning'),
+        success: withOpacity('--bg-success'),
+        info: withOpacity('--bg-info'),
+        brand: withOpacity('--bg-brand'),
       },
       textColor: {
-        primary: 'var(--text-primary)',
-        secondary: 'var(--text-secondary)',
-        tertiary: 'var(--text-tertiary)',
-        error: 'var(--text-error)',
-        warning: 'var(--text-warning)',
-        success: 'var(--text-success)',
-        info: 'var(--text-info)',
-        brand: 'var(--text-brand)'
+        primary: withOpacity('--text-primary'),
+        secondary: withOpacity('--text-secondary'),
+        tertiary: withOpacity('--text-tertiary'),
+        error: withOpacity('--text-error'),
+        warning: withOpacity('--text-warning'),
+        success: withOpacity('--text-success'),
+        info: withOpacity('--text-info'),
+        brand: withOpacity('--text-brand'),
       },
       borderColor: {
-        main: 'var(--border-main)',
-        success: 'var(--border-success)',
-        warning: 'var(--border-warning)',
-        error: 'var(--border-error)',
-        info: 'var(--border-info)',
-        brand: 'var(--border-brand)'
+        main: withOpacity('--border-main'),
+        success: withOpacity('--border-success'),
+        warning: withOpacity('--border-warning'),
+        error: withOpacity('--border-error'),
+        info: withOpacity('--border-info'),
+        brand: withOpacity('--border-brand'),
       },
       outlineColor: {
-        success: 'var(--outline-success)',
-        warning: 'var(--outline-warning)',
-        error: 'var(--outline-error)',
-        info: 'var(--outline-info)',
-        brand: 'var(--outline-brand)'
+        success: withOpacity('--outline-success'),
+        warning: withOpacity('--outline-warning'),
+        error: withOpacity('--outline-error'),
+        info: withOpacity('--outline-info'),
+        brand: withOpacity('--outline-brand'),
       },
       placeholderColor: {
-        main: 'var(--text-placeholder)'
+        main: withOpacity('--text-placeholder'),
       },
     },
   },

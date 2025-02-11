@@ -1,33 +1,41 @@
 import {cva, VariantProps} from "class-variance-authority"
-import React from "react"
+import React, {ReactNode} from "react"
 import {cn} from "@/lib/utils"
 
 const badgeVariants = cva(
-    "inline-flex items-center justify-center rounded-full border px-2 text-xs font-medium leading-normal transition-colors border",
+    "inline-flex items-center justify-center rounded-full border space-x-1 px-2 text-xs font-medium leading-normal transition-colors border",
     {
         variants: {
             variant: {
-                default: "bg-white/50 border-main",
-                brand: "bg-brand/60 border-brand/20 ",
-                success: "bg-success/60 border-success/20",
-                warning: "bg-warning/60 border-warning/20",
-                error: "bg-error/60 border-error/20",
-                info: "bg-info/60 border-info/20",
+                default: "bg-white/20 border-white/30 text-white",
+                brand: "bg-brand/30 border-brand/80 text-brand",
+                success: "bg-success/40 border-success/80 text-success",
+                warning: "bg-warning/40 border-warning/80 text-warning",
+                error: "bg-error/40 border-error/80 text-error",
+                info: "bg-info/40 border-info/80 text-info",
+            },
+            border: {
+                default: "",
+                none: "border-none"
             }
         },
         defaultVariants: {
-            variant: "default"
+            variant: "default",
+            border: "default"
         }
     }
 )
 
 interface BadgeProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof badgeVariants> {
+    title?: string
+    icon?: ReactNode
 }
 
-const Badge: React.FC<BadgeProps> = ({variant, children, className, ...props}) => {
+const Badge: React.FC<BadgeProps> = ({title, icon, variant, border, children, className, ...props}) => {
     return (
-        <div className={cn(badgeVariants({variant}), className)} {...props}>
-            {children}
+        <div className={cn(badgeVariants({ variant, border }), className)} {...props}>
+            {icon}
+            <p>{title}</p>
         </div>
     )
 }

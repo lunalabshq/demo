@@ -3,24 +3,52 @@ import type { ReactNode } from "react"
 import {cn} from "@/lib/utils"
 import {Check, ChevronRightIcon} from "lucide-react"
 import { CONTAINER_STYLES } from "@/lib/consts"
-import KeyboardShortcut from "@/components/ui/KeyboardShortcut"
+import {KeyboardShortcut} from "@/components/ui/KeyboardShortcut"
+import {ContextMenuSeparator} from "@radix-ui/react-context-menu"
 
-type MenuItem = {
+interface ContextItem {
+    type: 'item'
     label: string
-    onSelect: () => void
-    icon?: ReactNode
     shortcut?: string
+    icon?: ReactNode
+    onSelect?: () => void
 }
 
+interface ContextSubitem {
+    type: 'sub'
+    label: string
+    items: MenuItem[]
+    icon?: ReactNode
+}
+
+interface ContextLabel {
+    type: 'label'
+    label: string
+}
+
+interface ContextCheckbox {
+    type: 'checkbox'
+    label: string
+    checked?: boolean
+    onCheckedChange?: (checked: boolean) => void
+}
+
+interface ContextSeparator {
+    type: 'separator'
+}
+
+type MenuItem = ContextItem | ContextSubitem | ContextLabel | ContextCheckbox | ContextSeparator
+
+
 interface ContextMenuItemProps {
-    item: MenuItem
+    item: ContextItem
 }
 
 function ContextMenuItem({ item }: ContextMenuItemProps) {
     return (
         <ContextMenuPrimitive.Item
             onSelect={item.onSelect}
-            className={cn()}
+            className={cn("text-sm border-0 hover:bg-secondary outline-0 px-2 py-1 rounded-md cursor-pointer flex space-x-2 items-center hover:text-primary")}
         >
             {item.icon}
             <p>{item.label}</p>
@@ -31,38 +59,34 @@ function ContextMenuItem({ item }: ContextMenuItemProps) {
 }
 
 interface ContextMenuLabelProps {
-    label: string
+    item: ContextLabel
 }
 
-function ContextMenuLabel({label}: ContextMenuLabelProps) {
+function ContextMenuLabel({item}: ContextMenuLabelProps) {
     return (
         <ContextMenuPrimitive.Label
-            className={cn()}
+            className={cn("text-xs text-tertiary p-1")}
         >
-            {label}
+            {item.label}
         </ContextMenuPrimitive.Label>
     )
 }
 
 interface ContextMenuCheckboxItemProps {
-    onSelect: () => void
-    onCheckedChange: (checked: boolean) => void
-    label: string
-    checked: boolean
+    item: ContextCheckbox
 }
 
-function ContextMenuCheckboxItem({ onSelect, onCheckedChange, label, checked }: ContextMenuCheckboxItemProps) {
+function ContextMenuCheckboxItem({item}: ContextMenuCheckboxItemProps) {
     return (
         <ContextMenuPrimitive.CheckboxItem
-            onSelect={onSelect}
-            onCheckedChange={onCheckedChange}
-            checked={checked}
-            className={cn()}
+            onCheckedChange={item.onCheckedChange}
+            checked={item.checked}
+            className={cn("flex flex-row items-center text-sm border-0 hover:bg-secondary outline-0 px-2 py-1 rounded-md cursor-pointer hover:text-primary")}
         >
             <ContextMenuPrimitive.ItemIndicator>
-                {checked ? <Check size={12}/> : null}
+                {item.checked ? <Check size={14} className={"mr-1"}/> : null}
             </ContextMenuPrimitive.ItemIndicator>
-            {label}
+            {item.label}
         </ContextMenuPrimitive.CheckboxItem>
     )
 }
@@ -70,13 +94,13 @@ function ContextMenuCheckboxItem({ onSelect, onCheckedChange, label, checked }: 
 function ContextMenuSeperator() {
     return (
         <ContextMenuPrimitive.Separator
-            className={cn()}
+            className={cn("-mx-1 my-1 h-0 border-b border-t border-main")}
         />
     )
 }
 
 interface ContextMenuSubItemProps {
-    item: MenuItem
+    item: ContextSubitem
     width?: string
     children: ReactNode
 }
@@ -84,9 +108,9 @@ interface ContextMenuSubItemProps {
 function ContextMenuSubItem({item, width, children}: ContextMenuSubItemProps) {
     return (
         <ContextMenuPrimitive.Sub>
-            <ContextMenuPrimitive.SubTrigger className='text-primary data-[highlighted]:bg-tertiary dark:data-[highlighted]:shadow-select-item flex h-8 cursor-pointer items-center gap-1.5 rounded-md !border-0 pl-1.5 pr-1 !ring-0 focus-visible:!border-0 focus-visible:!outline-none focus-visible:!ring-0'>
+            <ContextMenuPrimitive.SubTrigger className="text-sm border-0 hover:bg-secondary outline-0 px-2 py-1 rounded-md cursor-pointer flex space-x-2 items-center hover:text-primary">
                 {item.icon}
-                <ContextMenuPrimitive.Label className='flex-1 text-sm'>
+                <ContextMenuPrimitive.Label className='flex-1'>
                     {item.label}
                 </ContextMenuPrimitive.Label>
                 <ChevronRightIcon size={14}/>
@@ -107,13 +131,39 @@ function ContextMenuSubItem({item, width, children}: ContextMenuSubItemProps) {
     )
 }
 
+interface ContextMenuActionsProps {
+    items: MenuItem[]
+    width?: string
+}
+
+function ContextMenuActions({ items, width }: ContextMenuActionsProps) {
+    return items.map((item, i) => {
+        if (item.type === 'separator') return <ContextMenuSeparator key={i} />
+
+        if (item.type === 'label') return <ContextMenuLabel key={i} item={item} />
+
+        if (item.type === 'checkbox') return <ContextMenuCheckboxItem key={i} item={item} />
+
+        if (item.type === 'sub') {
+            return (
+                <ContextMenuSubItem key={i} item={item} width={width}>
+                    <ContextMenuActions items={item.items} />
+                </ContextMenuSubItem>
+            )
+        }
+
+        return <ContextMenuItem key={i} item={item} />
+    })
+}
+
 interface ContextMenuProps {
     onOpenChange?: (open: boolean) => void
+    items: MenuItem[]
     asChild?: boolean
     children: ReactNode
 }
 
-function ContextMenu({onOpenChange, asChild, children}: ContextMenuProps) {
+function ContextMenu({onOpenChange, items, asChild, children}: ContextMenuProps) {
     return (
         <ContextMenuPrimitive.Root onOpenChange={onOpenChange}>
             <ContextMenuPrimitive.Trigger asChild={asChild}>
@@ -130,7 +180,7 @@ function ContextMenu({onOpenChange, asChild, children}: ContextMenuProps) {
                         CONTAINER_STYLES.animation
                     )}
                 >
-                    {children}
+                    <ContextMenuActions items={items} />
                 </ContextMenuPrimitive.Content>
             </ContextMenuPrimitive.Portal>
         </ContextMenuPrimitive.Root>

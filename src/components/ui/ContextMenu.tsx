@@ -1,12 +1,12 @@
 import * as ContextMenuPrimitive from "@radix-ui/react-context-menu"
-import type { ReactNode } from "react"
+import React, { type ReactNode } from "react"
 import {cn} from "@/lib/utils"
 import {Check, ChevronRightIcon} from "lucide-react"
 import { CONTAINER_STYLES } from "@/lib/consts"
 import {KeyboardShortcut} from "@/components/ui/KeyboardShortcut"
 import {ContextMenuSeparator} from "@radix-ui/react-context-menu"
 
-interface ContextItem {
+interface ItemType {
     type: 'item'
     label: string
     shortcut?: string
@@ -14,34 +14,34 @@ interface ContextItem {
     onSelect?: () => void
 }
 
-interface ContextSubitem {
+interface SubType {
     type: 'sub'
     label: string
     items: MenuItem[]
     icon?: ReactNode
 }
 
-interface ContextLabel {
+interface LabelType {
     type: 'label'
     label: string
 }
 
-interface ContextCheckbox {
+interface CheckboxType {
     type: 'checkbox'
     label: string
-    checked?: boolean
+    checked: boolean
     onCheckedChange?: (checked: boolean) => void
 }
 
-interface ContextSeparator {
+interface SeparatorType {
     type: 'separator'
 }
 
-type MenuItem = ContextItem | ContextSubitem | ContextLabel | ContextCheckbox | ContextSeparator
+type MenuItem = ItemType | SubType | LabelType | CheckboxType | SeparatorType
 
 
 interface ContextMenuItemProps {
-    item: ContextItem
+    item: ItemType
 }
 
 function ContextMenuItem({ item }: ContextMenuItemProps) {
@@ -59,7 +59,7 @@ function ContextMenuItem({ item }: ContextMenuItemProps) {
 }
 
 interface ContextMenuLabelProps {
-    item: ContextLabel
+    item: LabelType
 }
 
 function ContextMenuLabel({item}: ContextMenuLabelProps) {
@@ -72,19 +72,20 @@ function ContextMenuLabel({item}: ContextMenuLabelProps) {
     )
 }
 
-interface ContextMenuCheckboxItemProps {
-    item: ContextCheckbox
+interface ContextMenuCheckboxProps {
+    item: CheckboxType
 }
 
-function ContextMenuCheckboxItem({item}: ContextMenuCheckboxItemProps) {
+function ContextMenuCheckboxItem({item, ...props}: ContextMenuCheckboxProps) {
     return (
         <ContextMenuPrimitive.CheckboxItem
-            onCheckedChange={item.onCheckedChange}
             checked={item.checked}
+            onCheckedChange={item.onCheckedChange}
             className={cn("flex flex-row items-center text-sm border-0 hover:bg-secondary outline-0 px-2 py-1 rounded-md cursor-pointer hover:text-primary")}
+            {...props}
         >
             <ContextMenuPrimitive.ItemIndicator>
-                {item.checked ? <Check size={14} className={"mr-1"}/> : null}
+                <Check className="mr-1" size={14}/>
             </ContextMenuPrimitive.ItemIndicator>
             {item.label}
         </ContextMenuPrimitive.CheckboxItem>
@@ -94,13 +95,13 @@ function ContextMenuCheckboxItem({item}: ContextMenuCheckboxItemProps) {
 function ContextMenuSeperator() {
     return (
         <ContextMenuPrimitive.Separator
-            className={cn("-mx-1 my-1 h-0 border-b border-t border-main")}
+            className={cn("-mx-1 my-1 h-0 border-b border-main")}
         />
     )
 }
 
 interface ContextMenuSubItemProps {
-    item: ContextSubitem
+    item: SubType
     width?: string
     children: ReactNode
 }
@@ -117,7 +118,7 @@ function ContextMenuSubItem({item, width, children}: ContextMenuSubItemProps) {
             </ContextMenuPrimitive.SubTrigger>
             <ContextMenuPrimitive.Portal>
                 <ContextMenuPrimitive.SubContent
-                    sideOffset={4}
+                    sideOffset={8}
                     alignOffset={-4}
                     className={cn(
                         'bg-primary max-h-[--radix-context-menu-content-available-height] min-w-[--radix-context-menu-trigger-width] origin-[--radix-context-menu-content-transform-origin] overflow-y-auto rounded-lg border border-main p-1 shadow-md dark:shadow-[0px_0px_0px_0.5px_rgba(0,0,0,1),_0px_4px_4px_rgba(0,0,0,0.24)]',
@@ -138,20 +139,25 @@ interface ContextMenuActionsProps {
 
 function ContextMenuActions({ items, width }: ContextMenuActionsProps) {
     return items.map((item, i) => {
-        if (item.type === 'separator') return <ContextMenuSeparator key={i} />
+        // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+        if (item.type === 'separator') return <ContextMenuSeperator key={i} />
 
+        // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
         if (item.type === 'label') return <ContextMenuLabel key={i} item={item} />
 
+        // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
         if (item.type === 'checkbox') return <ContextMenuCheckboxItem key={i} item={item} />
 
         if (item.type === 'sub') {
             return (
+                // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                 <ContextMenuSubItem key={i} item={item} width={width}>
                     <ContextMenuActions items={item.items} />
                 </ContextMenuSubItem>
             )
         }
 
+        // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
         return <ContextMenuItem key={i} item={item} />
     })
 }

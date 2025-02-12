@@ -1,10 +1,10 @@
 import React from 'react';
 import type {Meta, StoryObj} from "@storybook/react";
-import {Checkbox} from "@/components/ui/Checkbox"
+import {Slider} from "@/components/ui/Slider"
 
-const meta: Meta<typeof Checkbox> = {
-    title: "Components/Checkbox",
-    component: Checkbox,
+const meta: Meta<typeof Slider> = {
+    title: "Components/Slider",
+    component: Slider,
     parameters: {
         layout: "centered",
     },
@@ -13,16 +13,20 @@ const meta: Meta<typeof Checkbox> = {
 
 export default meta;
 
-type Story = StoryObj<typeof Checkbox>
+type Story = StoryObj<typeof Slider>
 
 export const Default: Story = {
     render: () => {
 
         return (
             <div className={"flex flex-col p-32 space-y-2 bg-secondary"}>
-                <Checkbox size={"sm"}/>
-                <Checkbox size={"md"}/>
-                <Checkbox size={"lg"}/>
+
+                <Slider
+                    defaultValue={[50]}
+                    max={100}
+                    step={1}
+                    className={"w-96"}
+                />
             </div>
         );
     },

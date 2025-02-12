@@ -13,21 +13,19 @@ const SelectGroup = SelectPrimitive.Group
 
 const SelectValue = SelectPrimitive.Value
 
-interface SelectTriggerProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> {
-    icon?: ReactNode
-}
+interface SelectTriggerProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> {}
 
-const SelectTrigger = React.forwardRef<React.ComponentRef<typeof SelectPrimitive.Trigger>, SelectTriggerProps>(({ icon, className, children, ...props }, ref) => {
+const SelectTrigger = React.forwardRef<React.ComponentRef<typeof SelectPrimitive.Trigger>, SelectTriggerProps>(({ className, children, ...props }, ref) => {
     return (
         <SelectPrimitive.Trigger
             className={cn(
-                "flex h-8 w-full items-center justify-between rounded-md border border-main bg-primary px-2 py-1 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
+                "flex h-8 w-full items-center justify-between rounded-md border border-main bg-secondary px-2 py-1 text-sm " +
+                "disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1 focus:outline-0",
                 className
             )}
             ref={ref}
             {...props}
         >
-            {icon}
             {children}
             <SelectPrimitive.Icon asChild>
                 <ChevronDown size={12} className="text-secondary"/>
@@ -81,7 +79,11 @@ const SelectContent = React.forwardRef<React.ComponentRef<typeof SelectPrimitive
     return (
         <SelectPrimitive.Content
             className={cn(
-                "relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border bg-primary text-secondary shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+                "relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border border-main bg-primary text-secondary shadow-md " +
+                "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 " +
+                "data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 " +
+                "data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 " +
+                "data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
                 position === "popper" &&
                 "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
                 className
@@ -111,7 +113,7 @@ interface SelectLabelProps extends React.ComponentPropsWithoutRef<typeof SelectP
 const SelectLabel = React.forwardRef<React.ComponentRef<typeof SelectPrimitive.Label>, SelectLabelProps>(({ className, ...props }, ref) => {
     return (
         <SelectPrimitive.Label
-            className={cn("py-1.5 pl-8 pr-2 text-sm font-semibold", className)}
+            className={cn("py-1.5 px-2 text-xs text-tertiary", className)}
             ref={ref}
             {...props}
         />
@@ -125,7 +127,7 @@ const SelectItem = React.forwardRef<React.ComponentRef<typeof SelectPrimitive.It
     return (
         <SelectPrimitive.Item
             className={cn(
-                "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-secondary focus:text-primary data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+                "relative flex w-full cursor-default select-none items-center rounded-md py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-secondary focus:text-primary data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
                 className
             )}
             ref={ref}
@@ -149,7 +151,7 @@ interface SelectSeparatorProps extends React.ComponentPropsWithoutRef<typeof Sel
 const SelectSeparator = React.forwardRef<React.ComponentRef<typeof SelectPrimitive.Separator>, SelectSeparatorProps>(({ className, ...props }, ref) => {
     return (
         <SelectPrimitive.Separator
-            className={cn("-mx-1 my-1 h-px bg-main", className)}
+            className={cn("-mx-1 my-1 h-1 border-t border-main", className)}
             ref={ref}
             {...props}
         />

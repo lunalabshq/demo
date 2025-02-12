@@ -13,7 +13,7 @@ const TabsList = React.forwardRef<React.ComponentRef<typeof TabsPrimitive.List>,
     return (
         <TabsPrimitive.List
             className={cn(
-                "inline-flex h-8 items-center justify-center rounded-md bg-tertiary p-1 text-secondary",
+                "inline-flex h-10 items-center justify-center rounded-t-md bg-tertiary p-1 text-secondary",
                 className
             )}
             ref={ref}
@@ -47,7 +47,7 @@ const TabsContent = React.forwardRef<React.ComponentRef<typeof TabsPrimitive.Con
     return (
         <TabsPrimitive.Content
             className={cn(
-                "mt-2 ring-offset-background focus-visible:outline-none",
+                "ring-offset-background focus-visible:outline-none",
                 className
             )}
             ref={ref}

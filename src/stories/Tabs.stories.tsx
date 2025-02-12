@@ -25,7 +25,10 @@ export const Default: Story = {
                     <TabsTrigger value="password">Password</TabsTrigger>
                 </TabsList>
                 <TabsContent value="account">
-                    bnagnkga
+                    <div className={"w-full bg-tertiary"}>
+                        bnagnkga
+                    </div>
+
                 </TabsContent>
                 <TabsContent value="password">
                     amglaga

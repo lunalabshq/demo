@@ -27,6 +27,7 @@ export default {
         success: withOpacity('--bg-success'),
         info: withOpacity('--bg-info'),
         brand: withOpacity('--bg-brand'),
+        inverted: withOpacity('--bg-inverted'),
       },
       textColor: {
         primary: withOpacity('--text-primary'),
@@ -37,6 +38,7 @@ export default {
         success: withOpacity('--text-success'),
         info: withOpacity('--text-info'),
         brand: withOpacity('--text-brand'),
+        inverted: withOpacity('--text-inverted'),
       },
       borderColor: {
         main: withOpacity('--border-main'),

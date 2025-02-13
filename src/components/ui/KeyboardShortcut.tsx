@@ -1,18 +1,20 @@
 import { isMacOs } from "react-device-detect"
 import React from "react"
+import {cn} from "@/lib/utils"
 
 type KeyboardShortcutProps = {
     keyString: string
+    className?: string
 }
 
-function KeyboardShortcut({keyString}: KeyboardShortcutProps) {
+function KeyboardShortcut({keyString, className}: KeyboardShortcutProps) {
+    const getMetaKey = () => isMacOs ? '⌘ ' : 'Ctrl + '
 
-    const getMetaKey = () => {
-        if (isMacOs) return '⌘ '
-        return'Ctrl + '
-    }
-
-    return <span className={"px-1 rounded-sm bg-tertiary text-tertiary"}>{getMetaKey() + keyString}</span>
+    return (
+        <span className={cn("px-1 rounded-sm bg-tertiary text-tertiary", className)}>
+            {getMetaKey() + keyString}
+        </span>
+    )
 }
 
 export  { KeyboardShortcut }

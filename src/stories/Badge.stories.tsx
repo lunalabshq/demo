@@ -1,5 +1,5 @@
 import React from 'react';
-import {Meta, StoryObj} from "@storybook/react";
+import type {Meta, StoryObj} from "@storybook/react";
 import Badge from "@/components/ui/Badge"
 import {Info} from "lucide-react"
 

@@ -321,6 +321,7 @@ type ActionItem = {
 interface SidebarItemProps {
     action?: boolean
     actionItems?: ActionItem[]
+    actionTitle?: string
     isActive?: boolean
     tooltip?: Omit<TooltipProps, "trigger">
     showOnHover?: boolean
@@ -329,7 +330,7 @@ interface SidebarItemProps {
     icon?: ReactNode
 }
 
-const SidebarItem = React.forwardRef<HTMLDivElement, SidebarItemProps>(({ actionItems, icon, label, badge, showOnHover = false, isActive = false, tooltip, action = false, ...props }, ref) => {
+const SidebarItem = React.forwardRef<HTMLDivElement, SidebarItemProps>(({ actionTitle, actionItems, icon, label, badge, showOnHover = false, isActive = false, tooltip, action = false, ...props }, ref) => {
     const { isMobile, state } = useSidebar()
     const { addTooltip, removeTooltip } = useTooltip()
 
@@ -367,12 +368,13 @@ const SidebarItem = React.forwardRef<HTMLDivElement, SidebarItemProps>(({ action
                         </Button>
                     </PopoverTrigger>
                     <PopoverContent className={"w-30 p-1"} side={"right"} align={"start"}>
+                        <p className={"p-1 pb-2 text-xs text-tertiary"}>{actionTitle}</p>
                         <div className="flex flex-col space-y-1">
                             {actionItems?.map((item) => (
                                 <Button
                                     key={item.text}
                                     variant={"ghost"}
-                                    className={"text-left font-normal text-xs w-full px-2 py-1 justify-start"}
+                                    className={"text-left font-normal text-xs w-full px-2 py-0 h-6 justify-start"}
                                     onClick={item.onClick}
                                 >
                                     {item.icon}

@@ -61,7 +61,7 @@ export const Default: Story = {
                         <SidebarGroup label={"Menu"}>
                             <SidebarItem label={"Projects"} icon={<Box size={16}/>} tooltip={tooltip}/>
                             <SidebarItem label={"Teams"} icon={<Users size={16}/>} badge={badge}/>
-                            <SidebarItem label={"Calendar"} icon={<Calendar size={16}/>} action actionItems={actionItems}/>
+                            <SidebarItem label={"Calendar"} icon={<Calendar size={16}/>} action actionItems={actionItems} actionTitle={"Options"}/>
                         </SidebarGroup>
                         <SidebarGroup label={"Collapsible"}>
                             <SidebarCollapsible mainItem={{label: "Settings", icon: <Settings2 size={16}/>}}>

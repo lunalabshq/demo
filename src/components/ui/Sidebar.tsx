@@ -422,8 +422,13 @@ const SidebarCollapsible = React.forwardRef<HTMLDivElement, SidebarCollapsiblePr
                     <span className={""}>{mainItem.label}</span>
                 </div>
 
-                <div className={cn("w-6 h-6 flex items-center group-hover/collapsible:text-primary")}>
-                    {!open ? <ChevronUp size={16}/> : <ChevronUp size={16} className={"rotate-180"}/>}
+                <div
+                    data-state={open ? "expanded" : "collapsed"}
+                    className={cn(
+                        "size-4 flex items-center group-hover/collapsible:text-primary data-[state=expanded]:rotate-180 transition-all"
+                    )}
+                >
+                    <ChevronUp size={16} className={"shrink-0 transition-transform duration-200"}/>
                 </div>
             </div>
             {open &&

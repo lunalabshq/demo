@@ -106,7 +106,7 @@ const Toast = ({id, title, subtitle, icon, scale = 1, position = "br", closeButt
                     exit="exit"
                     variants={variants}
                     transition={{duration: 0.5,}}
-                    className={cn("rounded-lg", positionClasses(position), classNames.motionClassname)}
+                    className={cn("rounded-lg", positionClasses(position), classNames?.motionClassname)}
                     style={{...(position === "tc" || position === "bc" ? { marginLeft: `-${(width * scale) / 2}px` } : {}),
                         transformOrigin: isTopPositioned ? 'center top' : 'center bottom'}}
                 >
@@ -121,23 +121,23 @@ const Toast = ({id, title, subtitle, icon, scale = 1, position = "br", closeButt
                     >
                         <div className={cn("flex flex-row items-center space-x-2", closeButton && "mr-2")}>
                             {icon &&
-                                <div className={cn("text-secondary", classNames.iconClassname)}>
+                                <div className={cn("text-secondary", classNames?.iconClassname)}>
                                     {icon}
                                 </div>
                             }
                             <div className={cn("flex flex-col max-w-60", icon && "ml-4", actionButton)}>
-                                <span className={cn("text-sm font-medium text-nowrap truncate text-secondary", classNames.titleClassname)}>
+                                <span className={cn("text-sm font-medium text-nowrap truncate text-secondary", classNames?.titleClassname)}>
                                     {title}
                                 </span>
                                 {subtitle && subtitle.trim() !== "" && (
-                                    <span className={cn("text-xs text-tertiary", classNames.subtitleClassname)}>
+                                    <span className={cn("text-xs text-tertiary", classNames?.subtitleClassname)}>
                                         {subtitle}
                                     </span>
                                 )}
                             </div>
                             {actionButton &&
                                 <Button
-                                    className={cn("py-1 px-2 rounded-md text-xs", classNames.actionButtonClassname)}
+                                    className={cn("py-1 px-2 rounded-md text-xs", classNames?.actionButtonClassname)}
                                     onClick={onAction}
                                     variant={"primary"}
                                 >
@@ -147,11 +147,11 @@ const Toast = ({id, title, subtitle, icon, scale = 1, position = "br", closeButt
                         </div>
                         {closeButton &&
                             <Button
-                                className={cn("p-0.5 rounded-md", classNames.closeDivClassname)}
+                                className={cn("p-0.5 rounded-md", classNames?.closeDivClassname)}
                                 onClick={() => setVisible(false)}
                                 variant={"ghost"}
                             >
-                                <X size={16} className={cn("text-tertiary", classNames.closeClassname)}/>
+                                <X size={16} className={cn("text-tertiary", classNames?.closeClassname)}/>
                             </Button>
                         }
                     </div>

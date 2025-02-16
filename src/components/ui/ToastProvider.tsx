@@ -2,7 +2,7 @@
 
 import type React from "react"
 import {createContext, type ReactNode, useCallback, useContext, useEffect, useMemo, useState} from 'react'
-import Toast, {type Position, positionClasses, type ToastProps} from "@/components/ui/Toast"
+import {Toast, type Position, positionClasses, type ToastProps} from "@/components/ui/Toast"
 import {AnimatePresence, motion} from "framer-motion"
 import {createPortal} from "react-dom"
 

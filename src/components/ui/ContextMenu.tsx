@@ -4,41 +4,7 @@ import {cn} from "@/lib/utils"
 import {Check, ChevronRightIcon} from "lucide-react"
 import { CONTAINER_STYLES } from "@/lib/consts"
 import {KeyboardShortcut} from "@/components/ui/KeyboardShortcut"
-import {ContextMenuSeparator} from "@radix-ui/react-context-menu"
-
-interface ItemType {
-    type: 'item'
-    label: string
-    shortcut?: string
-    icon?: ReactNode
-    onSelect?: () => void
-}
-
-interface SubType {
-    type: 'sub'
-    label: string
-    items: MenuItem[]
-    icon?: ReactNode
-}
-
-interface LabelType {
-    type: 'label'
-    label: string
-}
-
-interface CheckboxType {
-    type: 'checkbox'
-    label: string
-    checked: boolean
-    onCheckedChange?: (checked: boolean) => void
-}
-
-interface SeparatorType {
-    type: 'separator'
-}
-
-type MenuItem = ItemType | SubType | LabelType | CheckboxType | SeparatorType
-
+import type {CheckboxType, ItemType, LabelType, MenuItem, SubType} from "@/lib/menu-types"
 
 interface ContextMenuItemProps {
     item: ItemType

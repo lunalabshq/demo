@@ -1,6 +1,5 @@
 import React from 'react';
 import type {Meta, StoryObj} from "@storybook/react";
-import {Info} from "lucide-react"
 import {Table, TableCaption, TableHeader, TableRow, TableHead, TableBody, TableCell, TableFooter} from "@/components/ui/Table"
 
 const meta: Meta<typeof Table> = {

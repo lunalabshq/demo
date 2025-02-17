@@ -1,14 +1,13 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import type {Meta, StoryObj} from "@storybook/react";
-import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@/components/ui/Accordion"
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/Table"
 import {
-    ColumnDef,
-    ColumnFiltersState,
+    type ColumnDef,
+    type ColumnFiltersState,
     getCoreRowModel, getFilteredRowModel,
     getPaginationRowModel, getSortedRowModel,
-    SortingState,
-    VisibilityState
+    type SortingState,
+    type VisibilityState
 } from "@tanstack/table-core"
 import {Checkbox} from "@/components/ui/Checkbox"
 import Button from "@/components/ui/Button"
@@ -32,7 +31,14 @@ type Story = StoryObj<typeof Table>
 export const DataTable: Story = {
     render: () => {
 
-        const data: Payment[] = [
+        type Payment = {
+            id: string
+            amount: number
+            status: "pending" | "processing" | "success" | "failed"
+            email: string
+        }
+
+        const data: Payment[] = useMemo(() => [
             {
                 id: "m5gr84i9",
                 amount: 316,
@@ -63,16 +69,9 @@ export const DataTable: Story = {
                 status: "failed",
                 email: "carmella@hotmail.com",
             },
-        ]
+        ], [])
 
-        type Payment = {
-            id: string
-            amount: number
-            status: "pending" | "processing" | "success" | "failed"
-            email: string
-        }
-
-        const columns: ColumnDef<Payment>[] = [
+        const columns = useMemo<ColumnDef<Payment>[]>(() => [
             {
                 id: "select",
                 header: ({ table }) => (
@@ -83,6 +82,7 @@ export const DataTable: Story = {
                         }
                         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
                         aria-label="Select all"
+                        size={"sm"}
                     />
                 ),
                 cell: ({ row }) => (
@@ -90,6 +90,7 @@ export const DataTable: Story = {
                         checked={row.getIsSelected()}
                         onCheckedChange={(value) => row.toggleSelected(!!value)}
                         aria-label="Select row"
+                        size={"sm"}
                     />
                 ),
                 enableSorting: false,
@@ -111,7 +112,7 @@ export const DataTable: Story = {
                             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                         >
                             Email
-                            <ArrowUpDown />
+                            <ArrowUpDown size={14} className={"ml-0.5 text-secondary"}/>
                         </Button>
                     )
                 },
@@ -121,7 +122,7 @@ export const DataTable: Story = {
                 accessorKey: "amount",
                 header: () => <div className="text-right">Amount</div>,
                 cell: ({ row }) => {
-                    const amount = parseFloat(row.getValue("amount"))
+                    const amount = Number.parseFloat(row.getValue("amount"))
 
                     // Format the amount as a dollar amount
                     const formatted = new Intl.NumberFormat("en-US", {
@@ -139,14 +140,14 @@ export const DataTable: Story = {
                     const payment = row.original
 
                     return (
-                        <Button variant="ghost" className="h-8 w-8 p-0">
+                        <Button variant="ghost" className="h-6 w-6 p-0">
                             <span className="sr-only">Open menu</span>
-                            <MoreHorizontal />
+                            <MoreHorizontal size={14}/>
                         </Button>
                     )
                 },
             },
-        ]
+        ], [])
 
         const [sorting, setSorting] = useState<SortingState>([])
         const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -173,7 +174,7 @@ export const DataTable: Story = {
         })
 
             return (
-                <div className="w-full">
+                <div className={"w-full flex flex-col space-y-2 p-32 bg-secondary"}>
                     <div className="flex items-center py-4">
                         <Input
                             placeholder="Filter emails..."
@@ -181,12 +182,12 @@ export const DataTable: Story = {
                             onChange={(event) => table.getColumn("email")?.setFilterValue(event.target.value)}
                             className="max-w-sm"
                         />
-                        <Button variant="default" className="ml-auto">
+                        <Button variant="default" className="ml-auto items-center">
                             Columns
-                            <ChevronDown />
+                            <ChevronDown size={16} className={"ml-1"}/>
                         </Button>
                     </div>
-                    <div className="rounded-md border">
+                    <div className="rounded-md">
                         <Table>
                             <TableHeader>
                                 {table.getHeaderGroups().map((headerGroup) => (
@@ -232,7 +233,7 @@ export const DataTable: Story = {
                         </Table>
                     </div>
                     <div className="flex items-center justify-end space-x-2 py-4">
-                        <div className="flex-1 text-sm text-muted-foreground">
+                        <div className="flex-1 text-xs text-tertiary">
                             {table.getFilteredSelectedRowModel().rows.length} of{" "}
                             {table.getFilteredRowModel().rows.length} row(s) selected.
                         </div>
@@ -254,6 +255,6 @@ export const DataTable: Story = {
                         </div>
                     </div>
                 </div>
-        );
+            );
     },
 };

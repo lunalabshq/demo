@@ -5,19 +5,18 @@ import type React from "react"
 import {X} from "lucide-react"
 import {AnimatePresence, motion} from "framer-motion"
 import { cn } from "@/lib/utils"
-import Button from "@/components/ui/Button"
-
+import {Button} from "@/components/ui/Button"
 
 type Position = "tr" | "tl" | "tc" | "br" | "bl" | "bc"
 
 export const positionClasses = (position: Position) => {
-    if (position === 'tr') return "top-4 right-4"
-    if (position === 'tl') return "top-4 left-4"
-    if (position === 'tc') return "top-4 left-1/2"
-    if (position === 'br') return "bottom-4 right-4"
-    if (position === 'bl') return "bottom-4 left-4"
-    if (position === 'bc') return "bottom-4 left-1/2"
-    return ''
+    if (position === "tr") return "top-4 right-4"
+    if (position === "tl") return "top-4 left-4"
+    if (position === "tc") return "top-4 left-1/2"
+    if (position === "br") return "bottom-4 right-4"
+    if (position === "bl") return "bottom-4 left-4"
+    if (position === "bc") return "bottom-4 left-1/2"
+    return ""
 }
 
 interface ToastProps extends HTMLAttributes<HTMLDivElement> {
@@ -43,7 +42,7 @@ interface ToastProps extends HTMLAttributes<HTMLDivElement> {
     }
 }
 
-const Toast = ({id, title, subtitle, icon, scale = 1, position = "br", closeButton, actionButton, onAction, actionButtonText, duration = 3000, classNames, className, removeToast, isPaused, ...props}: ToastProps & {removeToast: (id: string) => void; isPaused: boolean}) => {
+const Toast = ({id, title, subtitle, icon, scale = 1, position = "br", closeButton, actionButton, onAction, actionButtonText, duration = 3000, classNames, className, removeToast, isPaused, ...props}: ToastProps & {removeToast: (id: string) => void, isPaused: boolean}) => {
     const [visible, setVisible] = useState(true)
     const [width, setWidth] = useState<number>(0)
     const [height, setHeight] = useState<number>(0)
@@ -87,12 +86,12 @@ const Toast = ({id, title, subtitle, icon, scale = 1, position = "br", closeButt
         }
     }, [isPaused])
 
-    const isTopPositioned = ['tr', 'tl', 'tc'].includes(position)
+    const isTopPositioned = ["tr", "tl", "tc"].includes(position)
 
     const variants = {
-        initial: { opacity: 0, y: isTopPositioned ? '-120%' : '120%' },
+        initial: { opacity: 0, y: isTopPositioned ? "-120%" : "120%" },
         animate: { opacity: 1, y: 0 },
-        exit: { opacity: 0, y: isTopPositioned ? '-120%' : '120%' }
+        exit: { opacity: 0, y: isTopPositioned ? "-120%" : "120%" }
     }
 
     return (
@@ -108,7 +107,7 @@ const Toast = ({id, title, subtitle, icon, scale = 1, position = "br", closeButt
                     transition={{duration: 0.5,}}
                     className={cn("rounded-lg", positionClasses(position), classNames?.motionClassname)}
                     style={{...(position === "tc" || position === "bc" ? { marginLeft: `-${(width * scale) / 2}px` } : {}),
-                        transformOrigin: isTopPositioned ? 'center top' : 'center bottom'}}
+                        transformOrigin: isTopPositioned ? "center top" : "center bottom"}}
                 >
                     <div
                         className={cn(
@@ -139,7 +138,7 @@ const Toast = ({id, title, subtitle, icon, scale = 1, position = "br", closeButt
                                 <Button
                                     className={cn("py-1 px-2 rounded-md text-xs", classNames?.actionButtonClassname)}
                                     onClick={onAction}
-                                    variant={"primary"}
+                                    variant={"default"}
                                 >
                                     {actionButtonText || "Undo"}
                                 </Button>
@@ -147,11 +146,11 @@ const Toast = ({id, title, subtitle, icon, scale = 1, position = "br", closeButt
                         </div>
                         {closeButton &&
                             <Button
-                                className={cn("p-0.5 rounded-md", classNames?.closeDivClassname)}
+                                className={cn("group w-6 h-6 rounded-md p-0.5", classNames?.closeDivClassname)}
                                 onClick={() => setVisible(false)}
                                 variant={"ghost"}
                             >
-                                <X size={16} className={cn("text-tertiary", classNames?.closeClassname)}/>
+                                <X size={16} className={cn("text-tertiary group-hover:text-primary", classNames?.closeClassname)}/>
                             </Button>
                         }
                     </div>
@@ -161,5 +160,8 @@ const Toast = ({id, title, subtitle, icon, scale = 1, position = "br", closeButt
     )
 }
 
-export { Toast }
-export type { ToastProps, Position }
+export {
+    type ToastProps,
+    type Position,
+    Toast
+}

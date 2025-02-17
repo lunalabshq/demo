@@ -10,7 +10,33 @@ interface ContextMenuItemProps {
     item: ItemType
 }
 
-function ContextMenuItem({ item }: ContextMenuItemProps) {
+interface ContextMenuLabelProps {
+    item: LabelType
+}
+
+interface ContextMenuCheckboxProps {
+    item: CheckboxType
+}
+
+interface ContextMenuSubItemProps {
+    item: SubType
+    width?: string
+    children: ReactNode
+}
+
+interface ContextMenuActionsProps {
+    items: MenuItem[]
+    width?: string
+}
+
+interface ContextMenuProps {
+    onOpenChange?: (open: boolean) => void
+    items: MenuItem[]
+    asChild?: boolean
+    children: ReactNode
+}
+
+const ContextMenuItem = ({ item }: ContextMenuItemProps) => {
     return (
         <ContextMenuPrimitive.Item
             onSelect={item.onSelect}
@@ -23,12 +49,9 @@ function ContextMenuItem({ item }: ContextMenuItemProps) {
         </ContextMenuPrimitive.Item>
     )
 }
+ContextMenuItem.displayName = "ContextMenuItem"
 
-interface ContextMenuLabelProps {
-    item: LabelType
-}
-
-function ContextMenuLabel({item}: ContextMenuLabelProps) {
+const ContextMenuLabel = ({item}: ContextMenuLabelProps) => {
     return (
         <ContextMenuPrimitive.Label
             className={cn("text-xs text-tertiary p-1")}
@@ -37,12 +60,9 @@ function ContextMenuLabel({item}: ContextMenuLabelProps) {
         </ContextMenuPrimitive.Label>
     )
 }
+ContextMenuLabel.displayName = "ContextMenuLabel"
 
-interface ContextMenuCheckboxProps {
-    item: CheckboxType
-}
-
-function ContextMenuCheckboxItem({item, ...props}: ContextMenuCheckboxProps) {
+const ContextMenuCheckboxItem = ({item, ...props}: ContextMenuCheckboxProps) => {
     return (
         <ContextMenuPrimitive.CheckboxItem
             checked={item.checked}
@@ -57,22 +77,18 @@ function ContextMenuCheckboxItem({item, ...props}: ContextMenuCheckboxProps) {
         </ContextMenuPrimitive.CheckboxItem>
     )
 }
+ContextMenuCheckboxItem.displayName = "ContextMenuCheckboxItem"
 
-function ContextMenuSeperator() {
+const ContextMenuSeperator = () => {
     return (
         <ContextMenuPrimitive.Separator
             className={cn("-mx-1 my-1 h-0 border-b border-main")}
         />
     )
 }
+ContextMenuSeperator.displayName = "ContextMenuSeperator"
 
-interface ContextMenuSubItemProps {
-    item: SubType
-    width?: string
-    children: ReactNode
-}
-
-function ContextMenuSubItem({item, width, children}: ContextMenuSubItemProps) {
+const ContextMenuSubItem = ({item, width, children}: ContextMenuSubItemProps) => {
     return (
         <ContextMenuPrimitive.Sub>
             <ContextMenuPrimitive.SubTrigger className="text-sm border-0 hover:bg-secondary outline-0 px-2 py-1 rounded-md cursor-pointer flex space-x-2 items-center hover:text-primary">
@@ -97,13 +113,9 @@ function ContextMenuSubItem({item, width, children}: ContextMenuSubItemProps) {
         </ContextMenuPrimitive.Sub>
     )
 }
+ContextMenuSubItem.displayName = "ContextMenuSubItem"
 
-interface ContextMenuActionsProps {
-    items: MenuItem[]
-    width?: string
-}
-
-function ContextMenuActions({ items, width }: ContextMenuActionsProps) {
+const ContextMenuActions = ({ items, width }: ContextMenuActionsProps) => {
     return items.map((item, i) => {
         // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
         if (item.type === 'separator') return <ContextMenuSeperator key={i} />
@@ -127,15 +139,9 @@ function ContextMenuActions({ items, width }: ContextMenuActionsProps) {
         return <ContextMenuItem key={i} item={item} />
     })
 }
+ContextMenuActions.displayName = "ContextMenuActions"
 
-interface ContextMenuProps {
-    onOpenChange?: (open: boolean) => void
-    items: MenuItem[]
-    asChild?: boolean
-    children: ReactNode
-}
-
-function ContextMenu({onOpenChange, items, asChild, children}: ContextMenuProps) {
+const ContextMenu = ({onOpenChange, items, asChild, children}: ContextMenuProps) => {
     return (
         <ContextMenuPrimitive.Root onOpenChange={onOpenChange}>
             <ContextMenuPrimitive.Trigger asChild={asChild}>
@@ -158,6 +164,7 @@ function ContextMenu({onOpenChange, items, asChild, children}: ContextMenuProps)
         </ContextMenuPrimitive.Root>
     )
 }
+ContextMenu.displayName = "ContextMenu"
 
 export {
     type MenuItem,

@@ -1,17 +1,15 @@
-import React from 'react';
-import type {Meta, StoryObj} from "@storybook/react";
-import {Table, TableCaption, TableHeader, TableRow, TableHead, TableBody, TableCell, TableFooter} from "@/components/ui/Table"
+import React from "react"
+import type {Meta, StoryObj} from "@storybook/react"
+import {Table, TableHeader, TableRow, TableHead, TableBody, TableCell, TableFooter} from "@/components/ui/Table"
 
 const meta: Meta<typeof Table> = {
     title: "Components/Table",
     component: Table,
-    parameters: {
-        layout: "centered",
-    },
-    tags: ["autodocs"],
-};
+    parameters: { layout: "centered" },
+    tags: ["autodocs"]
+}
 
-export default meta;
+export default meta
 
 type Story = StoryObj<typeof Table>
 
@@ -92,6 +90,6 @@ export const Default: Story = {
                     </TableFooter>
                 </Table>
             </div>
-        );
-    },
-};
+        )
+    }
+}

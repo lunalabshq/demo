@@ -1,5 +1,5 @@
-import React from 'react';
-import {Meta, StoryObj} from "@storybook/react";
+import React from "react"
+import {Meta, StoryObj} from "@storybook/react"
 import {
     Toolbar,
     ToolbarButton,
@@ -13,19 +13,16 @@ import {AlignCenter, AlignLeft, AlignRight, Bold, Italic, Strikethrough} from "l
 const meta: Meta<typeof Toolbar> = {
     title: "Components/Toolbar",
     component: Toolbar,
-    parameters: {
-        layout: "centered",
-    },
-    tags: ["autodocs"],
-};
+    parameters: { layout: "centered" },
+    tags: ["autodocs"]
+}
 
-export default meta;
+export default meta
 
 type Story = StoryObj<typeof Toolbar>
 
 export const Default: Story = {
     render: () => {
-
         return (
             <div className={"flex flex-col space-y-2 p-32 bg-secondary"}>
                 <Toolbar>
@@ -94,6 +91,6 @@ export const Default: Story = {
                     </ToolbarButton>
                 </Toolbar>
             </div>
-        );
-    },
-};
+        )
+    }
+}

@@ -7,7 +7,7 @@ const calloutVariants = cva(
     {
         variants: {
             variant: {
-                default: "bg-white/5 text-secondary",
+                default: "bg-inverted/5 text-secondary",
                 brand: "bg-brand/10 text-brand",
                 success: "bg-success/10 text-success",
                 warning: "bg-warning/10 text-warning",
@@ -30,5 +30,6 @@ const Callout: React.FC<CalloutProps> = ({ variant, children, className, ...prop
         </div>
     )
 }
+Callout.displayName = "Callout"
 
-export {Callout}
+export { Callout }

@@ -1,5 +1,5 @@
-import React from 'react';
-import type {Meta, StoryObj} from "@storybook/react";
+import React from "react"
+import type {Meta, StoryObj} from "@storybook/react"
 import {
     Select,
     SelectContent,
@@ -15,19 +15,16 @@ import {GitMerge} from "lucide-react"
 const meta: Meta<typeof Select> = {
     title: "Components/Select",
     component: Select,
-    parameters: {
-        layout: "centered",
-    },
-    tags: ["autodocs"],
-};
+    parameters: { layout: "centered" },
+    tags: ["autodocs"]
+}
 
-export default meta;
+export default meta
 
 type Story = StoryObj<typeof Select>
 
 export const Default: Story = {
     render: () => {
-
         return (
             <div className={"flex flex-col p-32 space-y-2 bg-secondary"}>
                 <Select>
@@ -48,6 +45,6 @@ export const Default: Story = {
                     </SelectContent>
                 </Select>
             </div>
-        );
-    },
-};
+        )
+    }
+}

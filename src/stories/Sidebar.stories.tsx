@@ -1,8 +1,8 @@
-import React from 'react';
-import type {Meta, StoryObj} from "@storybook/react";
+import React from "react"
+import type {Meta, StoryObj} from "@storybook/react"
 import {
     Box,
-    Calendar,
+    Calendar, GitMerge,
     Settings2,
     Users
 } from "lucide-react"
@@ -18,17 +18,16 @@ import {
 } from "@/components/ui/Sidebar"
 import Badge from "@/components/ui/Badge"
 import type {TooltipProps} from "@/components/ui/Tooltip"
+import type {MenuItem} from "@/lib/menu-types"
 
 const meta: Meta<typeof Sidebar> = {
     title: "Components/Sidebar",
     component: Sidebar,
-    parameters: {
-        layout: "centered",
-    },
-    tags: ["autodocs"],
-};
+    parameters: { layout: "centered" },
+    tags: ["autodocs"]
+}
 
-export default meta;
+export default meta
 
 type Story = StoryObj<typeof Sidebar>
 
@@ -42,15 +41,15 @@ export const Default: Story = {
             anchor: "rc"
         }
 
-        const actionItems = [
-            {
-                text: "Create Project",
-                onClick: () => console.log("Create Project")
-            },
-            {
-                text: "Join Project",
-                onClick: () => console.log("Join Project")
-            }
+        const items: MenuItem[] = [
+            {label: "Label", type: "label"},
+            {label: "Item 2", type: "item", icon: <GitMerge size={12}/>},
+            {label: "Item 3", type: "item", shortcut: "Shift+L"},
+            {type: "separator"},
+            {label: "Submenu", type: "sub", items: [
+                {label: "Subitem 1", type: "item"},
+                {label: "Subitem 2", type: "item"}
+            ]}
         ]
 
         return (
@@ -61,7 +60,7 @@ export const Default: Story = {
                         <SidebarGroup label={"Menu"}>
                             <SidebarItem label={"Projects"} icon={<Box size={16}/>} tooltip={tooltip}/>
                             <SidebarItem label={"Teams"} icon={<Users size={16}/>} badge={badge}/>
-                            <SidebarItem label={"Calendar"} icon={<Calendar size={16}/>} action actionItems={actionItems} actionTitle={"Options"}/>
+                            <SidebarItem label={"Calendar"} icon={<Calendar size={16}/>} menuItems={items}/>
                         </SidebarGroup>
                         <SidebarGroup label={"Collapsible"}>
                             <SidebarCollapsible mainItem={{label: "Settings", icon: <Settings2 size={16}/>}}>

@@ -1,28 +1,28 @@
-import type {Meta, StoryObj} from "@storybook/react";
-import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger} from "@/components/ui/Dialog"
-import Button from "@/components/ui/Button";
+import type {Meta, StoryObj} from "@storybook/react"
+import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle} from "@/components/ui/Dialog"
+import {Button} from "@/components/ui/Button"
 import {useState} from "react"
 
 const meta: Meta<typeof Dialog> = {
     title: "Components/Dialog",
     component: Dialog,
-    parameters: {
-        layout: "centered",
-    },
+    parameters: { layout: "centered" },
     tags: ["autodocs"],
-};
+}
 
-export default meta;
+export default meta
 
 type Story = StoryObj<typeof Dialog>
 
 export const Default: Story = {
     render: () => {
-        const [isOpen, setIsOpen] = useState(false);
+        const [isOpen, setIsOpen] = useState(false)
 
         return (
             <>
-                <Button variant="brand" onClick={() => setIsOpen(true)}>Edit Profile</Button>
+                <Button variant="brand" onClick={() => setIsOpen(true)}>
+                    Edit Profile
+                </Button>
 
                 <Dialog open={isOpen} onOpenChange={setIsOpen}>
                     <DialogContent className="sm:max-w-[425px]">
@@ -54,4 +54,4 @@ export const Default: Story = {
             </>
         )
     }
-};
+}

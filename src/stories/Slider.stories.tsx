@@ -1,17 +1,15 @@
-import React from 'react';
-import type {Meta, StoryObj} from "@storybook/react";
+import React from "react"
+import type {Meta, StoryObj} from "@storybook/react"
 import {Slider} from "@/components/ui/Slider"
 
 const meta: Meta<typeof Slider> = {
     title: "Components/Slider",
     component: Slider,
-    parameters: {
-        layout: "centered",
-    },
-    tags: ["autodocs"],
-};
+    parameters: { layout: "centered" },
+    tags: ["autodocs"]
+}
 
-export default meta;
+export default meta
 
 type Story = StoryObj<typeof Slider>
 
@@ -20,7 +18,6 @@ export const Default: Story = {
 
         return (
             <div className={"flex flex-col p-32 space-y-2 bg-secondary"}>
-
                 <Slider
                     defaultValue={[50]}
                     max={100}
@@ -28,6 +25,6 @@ export const Default: Story = {
                     className={"w-96"}
                 />
             </div>
-        );
-    },
-};
+        )
+    }
+}

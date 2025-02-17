@@ -1,27 +1,25 @@
-import React from 'react';
-import type {Meta, StoryObj} from "@storybook/react";
+import React, {useState} from "react"
+import type {Meta, StoryObj} from "@storybook/react"
 import {ContextMenu, type MenuItem} from "@/components/ui/ContextMenu"
 import {GitMerge} from "lucide-react"
 
 const meta: Meta<typeof ContextMenu> = {
     title: "Components/ContextMenu",
     component: ContextMenu,
-    parameters: {
-        layout: "centered",
-    },
-    tags: ["autodocs"],
-};
+    parameters: { layout: "centered" },
+    tags: ["autodocs"]
+}
 
-export default meta;
+export default meta
 
 type Story = StoryObj<typeof ContextMenu>
 
 export const Default: Story = {
     render: () => {
 
-        const [open, setOpen] = React.useState(false);
-        const [checked, setChecked] = React.useState(true);
-        const [checked2, setChecked2] = React.useState(false);
+        const [open, setOpen] = useState(false)
+        const [checked, setChecked] = useState(true)
+        const [checked2, setChecked2] = useState(false)
 
         const items: MenuItem[] = [
             {label: "Label", type: "label"},
@@ -32,15 +30,15 @@ export const Default: Story = {
             {type: "separator"},
             {label: "Submenu", type: "sub", items: [
                 {label: "Subitem 1", type: "item"},
-                {label: "Subitem 2", type: "item"},
-            ]},
-        ];
+                {label: "Subitem 2", type: "item"}
+            ]}
+        ]
 
 
         return (
             <ContextMenu onOpenChange={setOpen} items={items}>
                 <div>Open</div>
             </ContextMenu>
-        );
-    },
-};
+        )
+    }
+}

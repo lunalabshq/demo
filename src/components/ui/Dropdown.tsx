@@ -8,12 +8,40 @@ import { cn } from "@/lib/utils"
 import type {CheckboxType, ItemType, LabelType, MenuItem, SubType} from "@/lib/menu-types"
 import type { ReactNode } from "react"
 import {KeyboardShortcut} from "@/components/ui/KeyboardShortcut"
-import * as ContextMenuPrimitive from "@radix-ui/react-context-menu"
 import {CONTAINER_STYLES} from "@/lib/consts"
+import {Side} from "@floating-ui/utils"
 
 
 interface DropdownMenuItemProps {
     item: ItemType
+}
+
+interface DropdownMenuLabelProps {
+    item: LabelType
+}
+
+interface DropdownMenuCheckboxProps {
+    item: CheckboxType
+}
+
+interface DropdownMenuSubItemProps {
+    item: SubType
+    width?: string
+    children: ReactNode
+}
+
+interface DropdownMenuActionsProps {
+    items: MenuItem[]
+    width?: string
+}
+
+interface DropdownMenuProps extends React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Root> {
+    onOpenChange?: (open: boolean) => void
+    items: MenuItem[]
+    asChild?: boolean
+    children: ReactNode
+    side?: Side
+    align?: "center" | "end" | "start" | undefined
 }
 
 const DropdownMenuItem = ({ item }: DropdownMenuItemProps) => {
@@ -31,10 +59,7 @@ const DropdownMenuItem = ({ item }: DropdownMenuItemProps) => {
         </DropdownMenuPrimitive.Item>
     )
 }
-
-interface DropdownMenuLabelProps {
-    item: LabelType
-}
+DropdownMenuItem.displayName = "DropdownMenuItem"
 
 const DropdownMenuLabel = ({item}: DropdownMenuLabelProps) => {
     return (
@@ -45,10 +70,7 @@ const DropdownMenuLabel = ({item}: DropdownMenuLabelProps) => {
         </DropdownMenuPrimitive.Label>
     )
 }
-
-interface DropdownMenuCheckboxProps {
-    item: CheckboxType
-}
+DropdownMenuLabel.displayName = "DropdownMenuLabel"
 
 const DropdownMenuCheckboxItem = ({item, ...props}: DropdownMenuCheckboxProps) => {
     return (
@@ -68,6 +90,7 @@ const DropdownMenuCheckboxItem = ({item, ...props}: DropdownMenuCheckboxProps) =
         </DropdownMenuPrimitive.CheckboxItem>
     )
 }
+DropdownMenuCheckboxItem.displayName = "DropdownMenuCheckboxItem"
 
 const DropdownMenuSeparator = () => {
     return (
@@ -76,12 +99,7 @@ const DropdownMenuSeparator = () => {
         />
     )
 }
-
-interface DropdownMenuSubItemProps {
-    item: SubType
-    width?: string
-    children: ReactNode
-}
+DropdownMenuSeparator.displayName = "DropdownMenuSeparator"
 
 const DropdownMenuSubItem = ({item, width, children}: DropdownMenuSubItemProps) => {
     return (
@@ -100,7 +118,7 @@ const DropdownMenuSubItem = ({item, width, children}: DropdownMenuSubItemProps) 
             </DropdownMenuPrimitive.SubTrigger>
             <DropdownMenuPrimitive.Portal>
                 <DropdownMenuPrimitive.SubContent
-                    sideOffset={8}
+                    sideOffset={4}
                     alignOffset={-4}
                     className={cn(
                         "bg-primary max-h-[--radix-dropdown-menu-content-available-height] " +
@@ -116,11 +134,7 @@ const DropdownMenuSubItem = ({item, width, children}: DropdownMenuSubItemProps) 
         </DropdownMenuPrimitive.Sub>
     )
 }
-
-interface DropdownMenuActionsProps {
-    items: MenuItem[]
-    width?: string
-}
+DropdownMenuSubItem.displayName = "DropdownMenuSubItem"
 
 const DropdownMenuActions = ({ items, width }: DropdownMenuActionsProps) => {
     return items.map((item, i) => {
@@ -146,15 +160,9 @@ const DropdownMenuActions = ({ items, width }: DropdownMenuActionsProps) => {
         return <DropdownMenuItem key={i} item={item} />
     })
 }
+DropdownMenuActions.displayName = "DropdownMenuActions"
 
-interface ContextMenuProps {
-    onOpenChange?: (open: boolean) => void
-    items: MenuItem[]
-    asChild?: boolean
-    children: ReactNode
-}
-
-const DropdownMenu = ({onOpenChange, items, asChild, children}: ContextMenuProps) => {
+const DropdownMenu = ({side = "bottom", align = "center", onOpenChange, items, asChild, children}: DropdownMenuProps) => {
     return (
         <DropdownMenuPrimitive.Root onOpenChange={onOpenChange}>
             <DropdownMenuPrimitive.Trigger asChild={asChild}>
@@ -163,9 +171,11 @@ const DropdownMenu = ({onOpenChange, items, asChild, children}: ContextMenuProps
             <DropdownMenuPrimitive.Portal>
                 <DropdownMenuPrimitive.Content
                     collisionPadding={8}
-                    alignOffset={4}
+                    sideOffset={8}
+                    side={side}
+                    align={align}
                     className={cn(
-                        "focus:outline-none",
+                        "focus:outline-none z-50",
                         "max-h-[--radix-dropdown-menu-content-available-height]",
                         "min-w-[--radix-dropdown-menu-trigger-width]",
                         "bg-primary overflow-y-auto rounded-lg border border-main p-1 shadow-md",
@@ -178,6 +188,7 @@ const DropdownMenu = ({onOpenChange, items, asChild, children}: ContextMenuProps
         </DropdownMenuPrimitive.Root>
     )
 }
+DropdownMenu.displayName = "DropdownMenu"
 
 export {
     DropdownMenu,

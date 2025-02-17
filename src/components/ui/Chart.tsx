@@ -22,6 +22,10 @@ type ChartContextProps = {
     config: ChartConfig
 }
 
+const ChartTooltip = RechartsPrimitive.Tooltip
+
+const ChartLegend = RechartsPrimitive.Legend
+
 const ChartContext = createContext<ChartContextProps | null>(null)
 
 function useChart() {
@@ -33,6 +37,26 @@ function useChart() {
 interface ChartContainerProps extends React.ComponentProps<"div"> {
     config: ChartConfig
     children: React.ComponentProps<typeof RechartsPrimitive.ResponsiveContainer>["children"]
+}
+
+interface ChartStyleProps {
+    id: string
+    config: ChartConfig
+}
+
+interface ChartTooltipContentProps extends React.ComponentProps<typeof RechartsPrimitive.Tooltip> {
+    hideLabel?: boolean
+    hideIndicator?: boolean
+    indicator?: "line" | "dot" | "dashed"
+    nameKey?: string
+    labelKey?: string
+    className?: string
+    color?: string
+}
+
+interface ChartLegendContentProps extends React.ComponentProps<"div">, Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign"> {
+    hideIcon?: boolean
+    nameKey?: string
 }
 
 const ChartContainer = React.forwardRef<HTMLDivElement, ChartContainerProps>(({ id, className, children, config, ...props }, ref) => {
@@ -69,11 +93,6 @@ const ChartContainer = React.forwardRef<HTMLDivElement, ChartContainerProps>(({ 
 })
 ChartContainer.displayName = "Chart"
 
-interface ChartStyleProps {
-    id: string
-    config: ChartConfig
-}
-
 const ChartStyle = ({ id, config }: ChartStyleProps) => {
     const colorConfig = Object.entries(config).filter(([, config]) => config.theme || config.color)
     if (!colorConfig.length) return null
@@ -93,18 +112,6 @@ const ChartStyle = ({ id, config }: ChartStyleProps) => {
             }}
         />
     )
-}
-
-const ChartTooltip = RechartsPrimitive.Tooltip
-
-interface ChartTooltipContentProps extends React.ComponentProps<typeof RechartsPrimitive.Tooltip> {
-    hideLabel?: boolean
-    hideIndicator?: boolean
-    indicator?: "line" | "dot" | "dashed"
-    nameKey?: string
-    labelKey?: string
-    className?: string
-    color?: string
 }
 
 const ChartTooltipContent = React.forwardRef<HTMLDivElement, ChartTooltipContentProps>(({color, className, active, payload, indicator = "dot", hideLabel = false, hideIndicator = false, label, labelFormatter, labelClassName, formatter, nameKey, labelKey}, ref) => {
@@ -139,12 +146,12 @@ const ChartTooltipContent = React.forwardRef<HTMLDivElement, ChartTooltipContent
 
     return (
         <div
-            ref={ref}
             className={cn(
                 "grid min-w-[8rem] items-start gap-1.5 rounded-md border border-main/30 " +
                 "bg-inverted px-2.5 py-1.5 text-black text-xs shadow-lg",
                 className
             )}
+            ref={ref}
         >
             {!nestLabel ? tooltipLabel : null}
             <div className="grid gap-1.5">
@@ -208,13 +215,6 @@ const ChartTooltipContent = React.forwardRef<HTMLDivElement, ChartTooltipContent
 })
 ChartTooltipContent.displayName = "ChartTooltip"
 
-const ChartLegend = RechartsPrimitive.Legend
-
-interface ChartLegendContentProps extends React.ComponentProps<"div">, Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign"> {
-    hideIcon?: boolean
-    nameKey?: string
-}
-
 const ChartLegendContent = React.forwardRef<HTMLDivElement, ChartLegendContentProps>(({ className, hideIcon = false, payload, verticalAlign = "bottom", nameKey }, ref) => {
     const { config } = useChart()
 
@@ -255,7 +255,6 @@ const ChartLegendContent = React.forwardRef<HTMLDivElement, ChartLegendContentPr
 })
 ChartLegendContent.displayName = "ChartLegend"
 
-// Helper to extract item config from a payload.
 function getPayloadConfigFromPayload(config: ChartConfig, payload: unknown, key: string) {
     if (typeof payload !== "object" || payload === null) return undefined
 
@@ -278,10 +277,10 @@ function getPayloadConfigFromPayload(config: ChartConfig, payload: unknown, key:
 
 export {
     type ChartConfig,
-    ChartContainer,
-    ChartTooltip,
-    ChartTooltipContent,
     ChartLegend,
+    ChartTooltip,
+    ChartContainer,
+    ChartTooltipContent,
     ChartLegendContent,
     ChartStyle
 }

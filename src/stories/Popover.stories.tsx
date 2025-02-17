@@ -1,16 +1,13 @@
-import type {Meta, StoryObj} from "@storybook/react";
-import {useState} from "react"
+import type {Meta, StoryObj} from "@storybook/react"
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/Popover"
-import Button from "@/components/ui/Button"
+import {Button} from "@/components/ui/Button"
 
 const meta: Meta<typeof Popover> = {
     title: "Components/Popover",
     component: Popover,
-    parameters: {
-        layout: "centered",
-    },
-    tags: ["autodocs"],
-};
+    parameters: { layout: "centered" },
+    tags: ["autodocs"]
+}
 
 export default meta;
 
@@ -70,4 +67,4 @@ export const Default: Story = {
             </Popover>
         )
     }
-};
+}

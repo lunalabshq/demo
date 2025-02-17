@@ -4,8 +4,8 @@ import type React from "react"
 import {DayPicker, useDayPicker, type DayPickerProps, labelNext, labelPrevious} from "react-day-picker"
 
 import { cn } from "@/lib/utils"
-import {useCallback, useMemo, useState } from "react"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import {useCallback, useMemo, useState} from "react"
+import {ChevronLeft, ChevronRight} from "lucide-react"
 import {Button} from "@/components/ui/Button"
 import {differenceInCalendarDays} from "date-fns"
 
@@ -15,6 +15,44 @@ export type CalendarProps = DayPickerProps & {
 }
 
 type NavView = "days" | "years"
+
+interface NavProps {
+    className?: string
+    navView: NavView
+    startMonth?: Date
+    endMonth?: Date
+    displayYears: { from: number, to: number }
+    setDisplayYears: React.Dispatch<React.SetStateAction<{ from: number, to: number }>>
+    onPrevClick?: (date: Date) => void
+    onNextClick?: (date: Date) => void
+}
+
+interface CaptionLabelProps {
+    children: React.ReactNode
+    showYearSwitcher?: boolean
+    navView: NavView
+    setNavView: React.Dispatch<React.SetStateAction<NavView>>
+    displayYears: { from: number, to: number }
+}
+
+interface MonthGridProps extends React.TableHTMLAttributes<HTMLTableElement> {
+    className?: string
+    children: React.ReactNode
+    displayYears: { from: number, to: number }
+    startMonth?: Date
+    endMonth?: Date
+    navView: NavView
+    setNavView: React.Dispatch<React.SetStateAction<NavView>>
+}
+
+interface YearGridProps extends React.HTMLAttributes<HTMLDivElement> {
+    className?: string
+    displayYears: { from: number, to: number }
+    startMonth?: Date
+    endMonth?: Date
+    setNavView: React.Dispatch<React.SetStateAction<NavView>>
+    navView: NavView
+}
 
 const Calendar = ({className, showOutsideDays = true, showYearSwitcher = true, yearRange = 12, numberOfMonths, ...props}: CalendarProps) => {
     const initialYears = useMemo(() => {
@@ -40,9 +78,8 @@ const Calendar = ({className, showOutsideDays = true, showYearSwitcher = true, y
                 month: "w-full",
                 nav: "flex items-start",
                 week: "mt-2 flex w-max items-start",
-                day:
-                    "rounded-md flex size-8 flex-1 items-center justify-center p-0 text-sm " +
-                    "hover:bg-tertiary hover:text-primary",
+                day: "rounded-md flex size-8 flex-1 items-center justify-center p-0 text-sm " +
+                     "hover:bg-tertiary hover:text-primary",
                 day_button: "size-8 rounded-md p-0 font-normal transition-none aria-selected:opacity-100",
                 range_start: "day-range-start rounded-l-md rounded-r-none",
                 range_middle: "bg-tertiary text-primary hover:bg-tertiary hover:text-primary rounded-none",
@@ -101,20 +138,7 @@ const Calendar = ({className, showOutsideDays = true, showYearSwitcher = true, y
 }
 Calendar.displayName = "Calendar"
 
-interface NavProps {
-    className?: string
-    navView: NavView
-    startMonth?: Date
-    endMonth?: Date
-    displayYears: { from: number, to: number }
-    setDisplayYears: React.Dispatch<
-        React.SetStateAction<{ from: number, to: number }>
-    >
-    onPrevClick?: (date: Date) => void
-    onNextClick?: (date: Date) => void
-}
-
-function Nav({className, navView, startMonth, endMonth, displayYears, setDisplayYears, onPrevClick, onNextClick}: NavProps) {
+const Nav = ({className, navView, startMonth, endMonth, displayYears, setDisplayYears, onPrevClick, onNextClick}: NavProps) => {
     const { nextMonth, previousMonth, goToMonth } = useDayPicker()
 
     const isPreviousDisabled = (() => {
@@ -199,15 +223,7 @@ function Nav({className, navView, startMonth, endMonth, displayYears, setDisplay
     )
 }
 
-interface CaptionLabelProps {
-    children: React.ReactNode
-    showYearSwitcher?: boolean
-    navView: NavView
-    setNavView: React.Dispatch<React.SetStateAction<NavView>>
-    displayYears: { from: number, to: number }
-}
-
-function CaptionLabel({children, showYearSwitcher, navView, setNavView, displayYears, ...props}: CaptionLabelProps) {
+const CaptionLabel = ({children, showYearSwitcher, navView, setNavView, displayYears, ...props}: CaptionLabelProps) => {
     if (!showYearSwitcher) return <span {...props}>{children}</span>
 
     return (
@@ -220,17 +236,7 @@ function CaptionLabel({children, showYearSwitcher, navView, setNavView, displayY
     )
 }
 
-interface MonthGridProps extends React.TableHTMLAttributes<HTMLTableElement> {
-    className?: string
-    children: React.ReactNode
-    displayYears: { from: number, to: number }
-    startMonth?: Date
-    endMonth?: Date
-    navView: NavView
-    setNavView: React.Dispatch<React.SetStateAction<NavView>>
-}
-
-function MonthGrid({className, children, displayYears, startMonth, endMonth, navView, setNavView, ...props}: MonthGridProps) {
+const MonthGrid = ({className, children, displayYears, startMonth, endMonth, navView, setNavView, ...props}: MonthGridProps) => {
     if (navView === "years") {
         return (
             <YearGrid
@@ -251,16 +257,7 @@ function MonthGrid({className, children, displayYears, startMonth, endMonth, nav
     )
 }
 
-interface YearGridProps extends React.HTMLAttributes<HTMLDivElement> {
-    className?: string
-    displayYears: { from: number, to: number }
-    startMonth?: Date
-    endMonth?: Date
-    setNavView: React.Dispatch<React.SetStateAction<NavView>>
-    navView: NavView
-}
-
-function YearGrid({className, displayYears, startMonth, endMonth, setNavView, navView, ...props}: YearGridProps) {
+const YearGrid = ({className, displayYears, startMonth, endMonth, setNavView, navView, ...props}: YearGridProps) => {
     const { goToMonth, selected } = useDayPicker()
 
     return (
@@ -278,8 +275,7 @@ function YearGrid({className, displayYears, startMonth, endMonth, setNavView, na
                         key={`${displayYears.from}-${displayYears.to}`}
                         className={cn(
                             "h-7 w-full text-sm font-normal hover:bg-tertiary bg-transparent border-0",
-                            displayYears.from + i === new Date().getFullYear() &&
-                            "bg-tertiary font-medium text-primary"
+                            displayYears.from + i === new Date().getFullYear() && "bg-tertiary font-medium text-primary"
                         )}
                         onClick={() => {
                             setNavView("days")

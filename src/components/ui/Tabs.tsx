@@ -8,6 +8,8 @@ import { cn } from "@/lib/utils"
 const Tabs = TabsPrimitive.Root
 
 interface TabsListProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.List> {}
+interface TabsTriggerProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger> {}
+interface TabsContentProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content> {}
 
 const TabsList = React.forwardRef<React.ComponentRef<typeof TabsPrimitive.List>, TabsListProps>(({ className, ...props }, ref) => {
     return (
@@ -23,14 +25,12 @@ const TabsList = React.forwardRef<React.ComponentRef<typeof TabsPrimitive.List>,
 })
 TabsList.displayName = TabsPrimitive.List.displayName
 
-interface TabsTriggerProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger> {}
-
 const TabsTrigger = React.forwardRef<React.ComponentRef<typeof TabsPrimitive.Trigger>, TabsTriggerProps>(({ className, ...props }, ref) => {
     return (
         <TabsPrimitive.Trigger
             className={cn(
-                "inline-flex items-center justify-center whitespace-nowrap rounded-md h-8 px-3 py-1 text-sm " +
-                "font-medium ring-offset-background transition-all focus-visible:outline-none disabled:pointer-events-none " +
+                "inline-flex items-center justify-center whitespace-nowrap rounded-md h-8 px-3 py-1 text-sm",
+                "font-normal ring-offset-background transition-all focus-visible:outline-none disabled:pointer-events-none",
                 "disabled:opacity-50 data-[state=active]:bg-primary data-[state=active]:text-primary data-[state=active]:shadow",
                 className
             )}
@@ -40,8 +40,6 @@ const TabsTrigger = React.forwardRef<React.ComponentRef<typeof TabsPrimitive.Tri
     )
 })
 TabsTrigger.displayName = TabsPrimitive.Trigger.displayName
-
-interface TabsContentProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content> {}
 
 const TabsContent = React.forwardRef<React.ComponentRef<typeof TabsPrimitive.Content>, TabsContentProps>(({ className, ...props }, ref) => {
     return (
@@ -57,4 +55,9 @@ const TabsContent = React.forwardRef<React.ComponentRef<typeof TabsPrimitive.Con
 })
 TabsContent.displayName = TabsPrimitive.Content.displayName
 
-export { Tabs, TabsList, TabsTrigger, TabsContent }
+export {
+    Tabs,
+    TabsList,
+    TabsTrigger,
+    TabsContent
+}

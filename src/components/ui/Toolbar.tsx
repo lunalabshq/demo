@@ -3,6 +3,10 @@ import React from "react"
 import {cn} from "@/lib/utils"
 
 interface ToolbarProps extends React.ComponentPropsWithoutRef<typeof ToolbarPrimitive.Root> {}
+interface ToolbarButtonProps extends React.ComponentPropsWithoutRef<typeof ToolbarPrimitive.Button> {}
+interface ToolbarLinkProps extends React.ComponentPropsWithoutRef<typeof ToolbarPrimitive.Link> {}
+interface ToolbarToggleItemProps extends React.ComponentPropsWithoutRef<typeof ToolbarPrimitive.ToggleItem> {}
+interface ToolbarSeperatorProps extends React.ComponentPropsWithoutRef<typeof ToolbarPrimitive.Separator> {}
 
 const Toolbar = React.forwardRef<React.ComponentRef<typeof ToolbarPrimitive.Root>, ToolbarProps>(({ className, ...props }, ref) => {
     return (
@@ -16,14 +20,13 @@ const Toolbar = React.forwardRef<React.ComponentRef<typeof ToolbarPrimitive.Root
         />
     )
 })
-
-interface ToolbarButtonProps extends React.ComponentPropsWithoutRef<typeof ToolbarPrimitive.Button> {}
+Toolbar.displayName = "Toolbar"
 
 const ToolbarButton = React.forwardRef<React.ComponentRef<typeof ToolbarPrimitive.Button>, ToolbarButtonProps>(({ className, ...props }, ref) => {
     return (
         <ToolbarPrimitive.Button
             className={cn(
-                "w-max inline-flex items-center justify-center h-6 px-3 rounded-md bg-white hover:bg-white/90 text-black/80 hover:text-black",
+                "w-max inline-flex items-center justify-center h-8 px-3 rounded-md bg-transparent hover:bg-tertiary text-secondary hover:text-primary",
                 className
             )}
             ref={ref}
@@ -31,14 +34,13 @@ const ToolbarButton = React.forwardRef<React.ComponentRef<typeof ToolbarPrimitiv
         />
     )
 })
-
-interface ToolbarLinkProps extends React.ComponentPropsWithoutRef<typeof ToolbarPrimitive.Link> {}
+ToolbarButton.displayName = "ToolbarButton"
 
 const ToolbarLink = React.forwardRef<React.ComponentRef<typeof ToolbarPrimitive.Link>, ToolbarLinkProps>(({ className, ...props }, ref) => {
     return (
         <ToolbarPrimitive.Link
             className={cn(
-                "inline-flex items-center justify-center rounded-md text-xs text-tertiary hover:text-blue-200 hover:underline hover:underline-offset-2",
+                "inline-flex items-center justify-center rounded-md text-xs text-tertiary hover:text-info hover:underline hover:underline-offset-2",
                 className
             )}
             ref={ref}
@@ -46,14 +48,13 @@ const ToolbarLink = React.forwardRef<React.ComponentRef<typeof ToolbarPrimitive.
         />
     )
 })
-
-interface ToolbarToggleItemProps extends React.ComponentPropsWithoutRef<typeof ToolbarPrimitive.ToggleItem> {}
+ToolbarLink.displayName = "ToolbarLink"
 
 const ToolbarToggleItem = React.forwardRef<React.ComponentRef<typeof ToolbarPrimitive.ToggleItem>, ToolbarToggleItemProps>(({ className, ...props }, ref) => {
     return (
         <ToolbarPrimitive.ToggleItem
             className={cn(
-                "inline-flex items-center justify-center w-8 h-8 rounded-md hover:bg-tertiary data-[state=on]:bg-tertiary data-[state=on]:text-white",
+                "inline-flex items-center justify-center w-8 h-8 rounded-md hover:bg-tertiary data-[state=on]:bg-tertiary data-[state=on]:text-primary",
                 className
             )}
             ref={ref}
@@ -61,6 +62,7 @@ const ToolbarToggleItem = React.forwardRef<React.ComponentRef<typeof ToolbarPrim
         />
     )
 })
+ToolbarToggleItem.displayName = "ToolbarToggleItem"
 
 const ToolbarToggleGroup = React.forwardRef<React.ComponentRef<typeof ToolbarPrimitive.ToggleGroup>, React.ComponentPropsWithoutRef<typeof ToolbarPrimitive.ToggleGroup>>(({ className, ...props }, ref) => {
     return (
@@ -74,8 +76,7 @@ const ToolbarToggleGroup = React.forwardRef<React.ComponentRef<typeof ToolbarPri
         />
     )
 })
-
-interface ToolbarSeperatorProps extends React.ComponentPropsWithoutRef<typeof ToolbarPrimitive.Separator> {}
+ToolbarToggleGroup.displayName = "ToolbarToggleGroup"
 
 const ToolbarSeparator = React.forwardRef<React.ComponentRef<typeof ToolbarPrimitive.ToggleGroup>, ToolbarSeperatorProps>(({ className, ...props }, ref) => {
     return (
@@ -89,6 +90,8 @@ const ToolbarSeparator = React.forwardRef<React.ComponentRef<typeof ToolbarPrimi
         />
     )
 })
+ToolbarSeparator.displayName = "ToolbarSeparator"
+
 export {
     Toolbar,
     ToolbarButton,

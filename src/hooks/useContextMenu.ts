@@ -27,4 +27,4 @@ export const useContextmenu = () => {
     }, [])
 
     return { contextMenu, handleContextMenu, closeContextMenu }
-};
+}

@@ -1,23 +1,20 @@
-import React from 'react';
-import type {Meta, StoryObj} from "@storybook/react";
+import React from "react"
+import type {Meta, StoryObj} from "@storybook/react"
 import {Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger} from "@/components/ui/Sheet"
 
 const meta: Meta<typeof Sheet> = {
     title: "Components/Sheet",
     component: Sheet,
-    parameters: {
-        layout: "centered",
-    },
-    tags: ["autodocs"],
-};
+    parameters: { layout: "centered" },
+    tags: ["autodocs"]
+}
 
-export default meta;
+export default meta
 
 type Story = StoryObj<typeof Sheet>
 
 export const Default: Story = {
     render: () => {
-
         return (
             <Sheet>
                 <SheetTrigger>Open</SheetTrigger>
@@ -31,7 +28,6 @@ export const Default: Story = {
                     </SheetHeader>
                 </SheetContent>
             </Sheet>
-
-        );
-    },
-};
+        )
+    }
+}

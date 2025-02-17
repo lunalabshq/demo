@@ -9,12 +9,11 @@ interface TooltipProps {
     icon?: ReactNode
     anchor?: "tl" | "tc" | "tr" | "bl" | "bc" | "br" | "lt" | "lc" | "lb" | "rt" | "rc" | "rb"
     delay?: number
-    color?: string
     offset?: number
     shortcut?: string
 }
 
-function Tooltip({ anchor = "rc", delay = 1000, icon, color, message, offset = 8, shortcut, trigger, lastTooltipTimestamp }: TooltipProps & { lastTooltipTimestamp: number | null }) {
+const Tooltip = ({ anchor = "rc", delay = 1000, icon, message, offset = 8, shortcut, trigger, lastTooltipTimestamp }: TooltipProps & { lastTooltipTimestamp: number | null }) => {
     const [isVisible, setIsVisible] = useState(false)
     const [position, setPosition] = useState({ x: 0, y: 0 })
     const timeout = useRef<number | null>(null)
@@ -131,18 +130,25 @@ function Tooltip({ anchor = "rc", delay = 1000, icon, color, message, offset = 8
 
     return (
         <div
-            className={"absolute z-50 w-max flex flex-row space-x-4 items-center px-2 py-1 rounded-md shadow-md text-xs bg-gray-100 border border-gray-300"}
+            className={"absolute z-50 w-max flex flex-row space-x-4 items-center px-2 py-1 rounded-md shadow-md text-xs bg-black dark:bg-white border border-main"}
             style={{top: position.y, left: position.x}}
             ref={tooltipRef}
         >
-            <div className={"flex flex-row space-x-2 items-center text-xs text-gray-800"}>
+            <div className={"flex flex-row space-x-2 items-center text-xs text-white/90 dark:text-black/90"}>
                 {icon}
                 <span>{message}</span>
             </div>
-            {shortcut && <KeyboardShortcut key={shortcut} keyString={shortcut} className={"bg-inverted text-inverted"}/>}
+            {shortcut &&
+                <KeyboardShortcut
+                    key={shortcut}
+                    keyString={shortcut}
+                    className={"bg-inverted text-inverted"}/>
+            }
         </div>
     )
 }
 
-export { Tooltip }
-export type { TooltipProps }
+export {
+    type TooltipProps,
+    Tooltip
+}

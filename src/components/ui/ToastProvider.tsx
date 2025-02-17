@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import {createContext, type ReactNode, useCallback, useContext, useEffect, useMemo, useState} from 'react'
+import {createContext, type ReactNode, useCallback, useContext, useEffect, useMemo, useState} from "react"
 import {Toast, type Position, positionClasses, type ToastProps} from "@/components/ui/Toast"
 import {AnimatePresence, motion} from "framer-motion"
 import {createPortal} from "react-dom"
@@ -10,11 +10,11 @@ const ToastPortal = ({ children }: {children: ReactNode}) => {
     const [portalElement, setPortalElement] = useState<HTMLElement | null>(null)
 
     useEffect(() => {
-        if (typeof window !== 'undefined') {
-            let element = document.getElementById('toast-portal-root')
+        if (typeof window !== "undefined") {
+            let element = document.getElementById("toast-portal-root")
             if (!element) {
-                element = document.createElement('div')
-                element.id = 'toast-portal-root'
+                element = document.createElement("div")
+                element.id = "toast-portal-root"
                 document.body.appendChild(element)
             }
             setPortalElement(element)
@@ -25,7 +25,7 @@ const ToastPortal = ({ children }: {children: ReactNode}) => {
                 portalElement.parentNode.removeChild(portalElement)
             }
         }
-    }, [portalElement])
+    }, [])
 
     if (!portalElement) return null
 
@@ -42,7 +42,7 @@ const ToastContext = createContext<ToastContextType | undefined>(undefined)
 export const useToast = () => {
     const context = useContext(ToastContext)
     if (context === undefined) {
-        throw new Error('useToast muss innerhalb eines Toasters verwendet werden')
+        throw new Error("useToast muss innerhalb eines Toasters verwendet werden")
     }
     return context
 }
@@ -77,7 +77,7 @@ const Toaster: React.FC<ToasterProps> = ({ children, layout = "stack", scaleDecr
     }, [toasts])
 
     const isTopPositioned =  (position: string) => {
-        return ['tr', 'tl', 'tc'].includes(position)
+        return ["tr", "tl", "tc"].includes(position)
     }
 
     const calculateScale = (index: number, total: number) => {
@@ -88,13 +88,13 @@ const Toaster: React.FC<ToasterProps> = ({ children, layout = "stack", scaleDecr
 
     const childStackVariants = {
         initial: (position: Position) => ({
-            marginTop: isTopPositioned(position) ? '0' : '-3rem',
-            marginBottom: isTopPositioned(position) ? '-3rem' : '0',
+            marginTop: isTopPositioned(position) ? "0" : "-3rem",
+            marginBottom: isTopPositioned(position) ? "-3rem" : "0",
             transition: { duration: 0.3 }
         }),
         hover: (position: Position) => ({
-            marginTop: isTopPositioned(position) ? '0' : '0.5rem',
-            marginBottom: isTopPositioned(position) ? '0.5rem' : '0',
+            marginTop: isTopPositioned(position) ? "0" : "0.5rem",
+            marginBottom: isTopPositioned(position) ? "0.5rem" : "0",
             transition: { duration: 0.3 },
             scale: 1
         })
@@ -102,8 +102,8 @@ const Toaster: React.FC<ToasterProps> = ({ children, layout = "stack", scaleDecr
 
     const childExpandVariants = {
         initial: (position: Position) => ({
-            marginTop: isTopPositioned(position) ? '0' : '0.5rem',
-            marginBottom: isTopPositioned(position) ? '0.5rem' : '0',
+            marginTop: isTopPositioned(position) ? "0" : "0.5rem",
+            marginBottom: isTopPositioned(position) ? "0.5rem" : "0",
             transition: { duration: 0.3 }
         }),
         hover: {}

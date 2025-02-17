@@ -6,7 +6,7 @@ import { Calendar as CalendarIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/Popover"
-import Button from "@/components/ui/Button"
+import {Button} from "@/components/ui/Button"
 import {Calendar} from "@/components/ui/Calendar"
 import {useState} from "react"
 import {DateRange} from "react-day-picker"
@@ -27,7 +27,7 @@ function DatePicker({ value, title, mode = "single" }: DatePickerProps) {
                 <Button
                     variant={"default"}
                     className={cn(
-                        "min-w-[240px] justify-start text-left font-normal hover:bg-secondary hover:text-secondary",
+                        "min-w-[240px] text-sm justify-start text-left font-normal hover:bg-secondary hover:text-secondary",
                         !date && "text-muted-foreground"
                     )}
                 >
@@ -76,5 +76,6 @@ function DatePicker({ value, title, mode = "single" }: DatePickerProps) {
         </Popover>
     )
 }
+DatePicker.displayName = "DatePicker"
 
 export { DatePicker }

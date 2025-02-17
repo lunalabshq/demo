@@ -6,7 +6,7 @@ import {DayPicker, useDayPicker, type DayPickerProps, labelNext, labelPrevious} 
 import { cn } from "@/lib/utils"
 import {useCallback, useMemo, useState } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
-import Button from "@/components/ui/Button"
+import {Button} from "@/components/ui/Button"
 import {differenceInCalendarDays} from "date-fns"
 
 export type CalendarProps = DayPickerProps & {
@@ -16,7 +16,7 @@ export type CalendarProps = DayPickerProps & {
 
 type NavView = "days" | "years"
 
-function Calendar({className, showOutsideDays = true, showYearSwitcher = true, yearRange = 12, numberOfMonths, ...props}: CalendarProps) {
+const Calendar = ({className, showOutsideDays = true, showYearSwitcher = true, yearRange = 12, numberOfMonths, ...props}: CalendarProps) => {
     const initialYears = useMemo(() => {
         const currentYear = new Date().getFullYear()
         return {from: currentYear - Math.floor(yearRange / 2 - 1), to: currentYear + Math.ceil(yearRange / 2)}
@@ -106,9 +106,9 @@ interface NavProps {
     navView: NavView
     startMonth?: Date
     endMonth?: Date
-    displayYears: { from: number; to: number }
+    displayYears: { from: number, to: number }
     setDisplayYears: React.Dispatch<
-        React.SetStateAction<{ from: number; to: number }>
+        React.SetStateAction<{ from: number, to: number }>
     >
     onPrevClick?: (date: Date) => void
     onNextClick?: (date: Date) => void
@@ -204,7 +204,7 @@ interface CaptionLabelProps {
     showYearSwitcher?: boolean
     navView: NavView
     setNavView: React.Dispatch<React.SetStateAction<NavView>>
-    displayYears: { from: number; to: number }
+    displayYears: { from: number, to: number }
 }
 
 function CaptionLabel({children, showYearSwitcher, navView, setNavView, displayYears, ...props}: CaptionLabelProps) {
@@ -223,7 +223,7 @@ function CaptionLabel({children, showYearSwitcher, navView, setNavView, displayY
 interface MonthGridProps extends React.TableHTMLAttributes<HTMLTableElement> {
     className?: string
     children: React.ReactNode
-    displayYears: { from: number; to: number }
+    displayYears: { from: number, to: number }
     startMonth?: Date
     endMonth?: Date
     navView: NavView
@@ -253,7 +253,7 @@ function MonthGrid({className, children, displayYears, startMonth, endMonth, nav
 
 interface YearGridProps extends React.HTMLAttributes<HTMLDivElement> {
     className?: string
-    displayYears: { from: number; to: number }
+    displayYears: { from: number, to: number }
     startMonth?: Date
     endMonth?: Date
     setNavView: React.Dispatch<React.SetStateAction<NavView>>

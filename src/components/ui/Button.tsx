@@ -1,17 +1,19 @@
-import {cva, VariantProps} from "class-variance-authority"
+import {cva, type VariantProps} from "class-variance-authority"
 import React from "react"
 import {Slot} from "@radix-ui/react-slot"
 import {cn} from "@/lib/utils"
 
 const buttonVariants = cva(
-    "inline-flex items-center justify-center h-8 px-4 py-2 whitespace-nowrap transition-colors rounded-md test-sm font-medium disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "inline-flex items-center justify-center h-8 px-4 py-2 whitespace-nowrap transition-colors rounded-md " +
+    "test-sm font-medium disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none " +
+    "[&_svg]:shrink-0",
     {
         variants: {
             variant: {
                 default: "bg-secondary hover:bg-primary border border-main hover:text-primary",
-                primary: "bg-white hover:bg-white/90 border border-primary text-black/80 hover:text-black",
-                brand: "bg-brand/40 hover:bg-brand border border-brand/40 text-white/80 hover:text-white",
-                ghost: "bg-transparent hover:bg-white/10 hover:text-white",
+                primary: "bg-inverted/80 hover:bg-inverted border border-main text-white/80 dark:text-black/80 hover:text-white dark:hover:text-black",
+                brand: "bg-brand/70 hover:bg-brand border border-brand/40 text-white/80 hover:text-white",
+                ghost: "bg-transparent hover:bg-inverted/10 text-secondary hover:text-primary",
             }
         },
         defaultVariants: {
@@ -25,7 +27,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, Var
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({asChild, variant, className, ...props}, ref) => {
-    const ButtonComponent = asChild ? Slot : "button";
+    const ButtonComponent = asChild ? Slot : "button"
 
     return (
         <ButtonComponent
@@ -37,4 +39,4 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({asChild, varia
 })
 Button.displayName = "Button"
 
-export default Button
+export { Button }

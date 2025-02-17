@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
-import {ChevronRight, MoreHorizontal, Slash} from "lucide-react"
+import {ChevronRight, MoreHorizontal} from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import type {ReactNode} from "react"
@@ -10,11 +10,19 @@ interface BreadcrumbProps extends React.ComponentPropsWithoutRef<"nav"> {
     children: ReactNode
 }
 
+interface BreadcrumbLinkProps extends React.ComponentPropsWithoutRef<"a"> {
+    asChild?: boolean
+}
+
+interface BreadcrumbSeparatorProps extends React.ComponentProps<"li"> {
+    type?: "chevron" | "slash"
+}
+
 const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(({children, separator, ...props}, ref) => {
     return (
         <nav
-            ref={ref}
             aria-label="breadcrumb"
+            ref={ref}
             {...props}
         >
             <ol
@@ -40,10 +48,6 @@ const BreadcrumbItem = React.forwardRef<HTMLLIElement, React.ComponentPropsWitho
 })
 BreadcrumbItem.displayName = "BreadcrumbItem"
 
-interface BreadcrumbLinkProps extends React.ComponentPropsWithoutRef<"a"> {
-    asChild?: boolean
-}
-
 const BreadcrumbLink = React.forwardRef<HTMLAnchorElement, BreadcrumbLinkProps>(({ asChild, className, ...props }, ref) => {
     const Comp = asChild ? Slot : "a"
 
@@ -59,10 +63,8 @@ BreadcrumbLink.displayName = "BreadcrumbLink"
 
 const BreadcrumbPage = React.forwardRef<HTMLSpanElement, React.ComponentPropsWithoutRef<"span">>(({ className, ...props }, ref) => {
     return (
-        // biome-ignore lint/a11y/useFocusableInteractive: <explanation>
         <span
             ref={ref}
-            role="link"
             aria-disabled="true"
             aria-current="page"
             className={cn("font-normal text-primary", className)}
@@ -71,10 +73,6 @@ const BreadcrumbPage = React.forwardRef<HTMLSpanElement, React.ComponentPropsWit
     )
 })
 BreadcrumbPage.displayName = "BreadcrumbPage"
-
-interface BreadcrumbSeparatorProps extends React.ComponentProps<"li"> {
-    type?: "chevron" | "slash"
-}
 
 const BreadcrumbSeparator = ({type = "chevron", className, ...props}: BreadcrumbSeparatorProps) => {
     return (

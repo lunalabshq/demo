@@ -1,9 +1,11 @@
+"use client"
+
 import React from "react"
-import {Accordion, AccordionContent, AccordionItem} from "lunalabs-components/src/components/Accordion"
+import {Accordion, AccordionContent, AccordionItem} from "lunalabs-ui"
 
 export default function Page() {
     return (
-        <div>
+        <div className={"h-screen w-screen"}>
             <Accordion type="single" collapsible className="w-96">
                 <AccordionItem value="item-1" title={"Is it accessible?"}>
                     <AccordionContent>

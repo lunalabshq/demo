@@ -22,12 +22,14 @@ import {
     BreadcrumbSeparator,
     BreadcrumbItem,
     BreadcrumbPage,
-    BreadcrumbLink, MenuItem, Button
+    BreadcrumbLink
 } from "lunalabs-ui"
 import {projects} from "@/data"
 import {Box, Calendar, ChevronsUpDown, LayoutPanelLeft, MoreHorizontal} from "lucide-react"
+import type { MenuItem } from "@/lib/menu-types"
+import type React from "react"
 
-function CustomSidebar() {
+const CustomSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
 
     const profileItems: MenuItem[] = [
     ]
@@ -55,13 +57,13 @@ function CustomSidebar() {
     ]
 
     return (
-        <SidebarProvider>
-            <Sidebar collapsible="icon">
+            <Sidebar collapsible="icon" className={"sticky"}>
                 <SidebarHeader/>
                 <SidebarContent>
                     <SidebarGroup>
                         <SidebarGroupLabel>Platform</SidebarGroupLabel>
                             <SidebarMenu>
+                                {/* biome-ignore lint/suspicious/noExplicitAny: <explanation> */}
                                 {sidebarItems?.map((item: any) => (
                                     <SidebarMenuItem key={item.title}>
                                         <SidebarMenuButton>
@@ -84,7 +86,7 @@ function CustomSidebar() {
                                             <span>{item.title}</span>
                                         </a>
                                     </SidebarMenuButton>
-                                    <DropdownMenu items={projectItems}>
+                                    <DropdownMenu items={projectItems} asChild={true}>
                                         <SidebarMenuAction showOnHover asChild>
                                             <MoreHorizontal />
                                             <span className="sr-only">More</span>
@@ -104,10 +106,9 @@ function CustomSidebar() {
                 <SidebarFooter>
                     <SidebarMenu>
                         <SidebarMenuItem>
-                            <DropdownMenu items={profileItems}>
+                            <DropdownMenu items={profileItems} asChild={true}>
                                 <SidebarMenuButton
-                                    size="lg"
-                                    className="data-[state=open]:bg-secondary data-[state=open]:text-primary justify-between"
+                                    className="h-10 data-[state=open]:bg-secondary data-[state=open]:text-primary justify-between group-data-[collapsible=icon]:!p-0 group-data-[collapsible=icon]:hover:bg-transparent group-data-[collapsible=icon]:!h-10"
                                 >
                                     <div className={"flex flex-row space-x-2"}>
                                         <Avatar className="h-8 w-8">
@@ -126,34 +127,6 @@ function CustomSidebar() {
                     </SidebarMenu>
                 </SidebarFooter>
             </Sidebar>
-            <SidebarInset>
-                <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
-                    <div className="flex items-center gap-2 px-4">
-                        <SidebarTrigger className="-ml-1" />
-                        <hr className="mr-2 h-4 border-main" />
-                        <Breadcrumb>
-                            <BreadcrumbItem className="hidden md:block">
-                                <BreadcrumbLink href="#">
-                                    Building Your Application
-                                </BreadcrumbLink>
-                            </BreadcrumbItem>
-                            <BreadcrumbSeparator className="hidden md:block" />
-                            <BreadcrumbItem>
-                                <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                            </BreadcrumbItem>
-                        </Breadcrumb>
-                    </div>
-                </header>
-                <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-                    <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-                        <div className="aspect-video rounded-xl bg-muted/50" />
-                        <div className="aspect-video rounded-xl bg-muted/50" />
-                        <div className="aspect-video rounded-xl bg-muted/50" />
-                    </div>
-                    <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
-                </div>
-            </SidebarInset>
-        </SidebarProvider>
     )
 }
 

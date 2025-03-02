@@ -6,7 +6,6 @@ import {
     SidebarContent,
     SidebarGroup,
     SidebarFooter,
-    SidebarProvider,
     SidebarGroupLabel,
     SidebarMenu,
     SidebarMenuItem,
@@ -15,44 +14,66 @@ import {
     SidebarMenuButton,
     Avatar,
     AvatarImage,
-    AvatarFallback,
-    SidebarInset,
-    SidebarTrigger,
-    Breadcrumb,
-    BreadcrumbSeparator,
-    BreadcrumbItem,
-    BreadcrumbPage,
-    BreadcrumbLink
+    AvatarFallback, PopoverTrigger, PopoverContent,
+    Popover, useSidebar,
 } from "lunalabs-ui"
 import {projects} from "@/data"
-import {Box, Calendar, ChevronsUpDown, LayoutPanelLeft, MoreHorizontal} from "lucide-react"
+import {
+    Box,
+    Calendar,
+    ChevronsUpDown,
+    LayoutPanelLeft,
+    LogOut,
+    MoreHorizontal,
+    Settings,
+    Share,
+    Trash,
+    User
+} from "lucide-react"
 import type { MenuItem } from "@/lib/menu-types"
 import type React from "react"
 
 const CustomSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
 
+    const { state } = useSidebar()
+
     const profileItems: MenuItem[] = [
+        {label: "Profile", type: "item", icon: <User size={12}/>},
+        {label: "Settings", type: "item", icon: <Settings size={12}/>},
+        {label: "Logout", type: "item", icon: <LogOut size={12}/>}
     ]
 
     const projectItems: MenuItem[] = [
-
+        {label: "Project Actions", type: "label"},
+        {label: "Share Project", type: "item", icon: <Share size={12}/>},
+        {label: "Delete", type: "item", icon: <Trash size={12}/>},
+        {label: "Leave", type: "item", icon: <LogOut size={12}/>}
     ]
 
     const sidebarItems = [
         {
             title: "Dashboard",
             url: "",
-            icon: <LayoutPanelLeft size={16} />
+            icon: <LayoutPanelLeft size={16} />,
+            tooltip: {
+                message: "Dashboard",
+            }
         },
         {
             title: "Projects",
-            url: "https://luna-labs.github.io/icons/",
-            icon: <Box size={16} />
+            url: "",
+            icon: <Box size={16} />,
+            tooltip: {
+                message: "Projects",
+            }
         },
         {
-            title: "Contact",
-            url: "https://luna-labs.github.io/icons/",
-            icon: <Calendar size={16} />
+            title: "Calendar",
+            url: "",
+            icon: <Calendar size={16} />,
+            tooltip: {
+                message: "Calendar",
+            }
         },
     ]
 
@@ -66,7 +87,7 @@ const CustomSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
                                 {/* biome-ignore lint/suspicious/noExplicitAny: <explanation> */}
                                 {sidebarItems?.map((item: any) => (
                                     <SidebarMenuItem key={item.title}>
-                                        <SidebarMenuButton>
+                                        <SidebarMenuButton tooltip={item.tooltip}>
                                             {item.icon}
                                             <a href={item.url}>
                                                 <span>{item.title}</span>
@@ -86,7 +107,7 @@ const CustomSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
                                             <span>{item.title}</span>
                                         </a>
                                     </SidebarMenuButton>
-                                    <DropdownMenu items={projectItems} asChild={true}>
+                                    <DropdownMenu items={projectItems} asChild={true} align={"start"} side={"right"}>
                                         <SidebarMenuAction showOnHover asChild>
                                             <MoreHorizontal />
                                             <span className="sr-only">More</span>
@@ -106,23 +127,47 @@ const CustomSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
                 <SidebarFooter>
                     <SidebarMenu>
                         <SidebarMenuItem>
-                            <DropdownMenu items={profileItems} asChild={true}>
-                                <SidebarMenuButton
-                                    className="h-10 data-[state=open]:bg-secondary data-[state=open]:text-primary justify-between group-data-[collapsible=icon]:!p-0 group-data-[collapsible=icon]:hover:bg-transparent group-data-[collapsible=icon]:!h-10"
-                                >
-                                    <div className={"flex flex-row space-x-2"}>
-                                        <Avatar className="h-8 w-8">
-                                            <AvatarImage src={""} alt={""} />
-                                            <AvatarFallback/>
-                                        </Avatar>
-                                        <div className="grid flex-1 text-left text-sm leading-tight">
-                                            <span className="truncate font-semibold">{"Guest"}</span>
-                                            <span className="truncate text-xs">{"guest@email.com"}</span>
+                            <Popover>
+                                <PopoverTrigger asChild>
+                                    <SidebarMenuButton
+                                        className="h-10 data-[state=open]:bg-secondary data-[state=open]:text-primary justify-between group-data-[collapsible=icon]:!p-0 group-data-[collapsible=icon]:hover:bg-transparent group-data-[collapsible=icon]:!h-10"
+                                    >
+                                        <div className={"flex flex-row space-x-2"}>
+                                            <Avatar className="h-8 w-8">
+                                                <AvatarImage src={""} alt={""} />
+                                                <AvatarFallback/>
+                                            </Avatar>
+                                            <div className="grid flex-1 text-left text-sm leading-tight">
+                                                <span className="truncate font-semibold">{"Guest"}</span>
+                                                <span className="truncate text-xs">{"guest@email.com"}</span>
+                                            </div>
                                         </div>
+                                        <ChevronsUpDown className="ml-auto size-4" />
+                                    </SidebarMenuButton>
+                                </PopoverTrigger>
+                                <PopoverContent
+                                    className={"p-1 w-48 gap-1"}
+                                    side={state === "expanded" ? "top" : "right"}
+                                    align={state === "expanded" ? "start" : "end"}
+                                    sideOffset={state === "expanded" ? 8 : 16}
+
+                                >
+                                    <div className={"flex gap-2 px-2 py-1 items-center rounded-md hover:bg-secondary hover:text-primary"}>
+                                        <User size={16}/>
+                                        <p>Profile</p>
                                     </div>
-                                    <ChevronsUpDown className="ml-auto size-4" />
-                                </SidebarMenuButton>
-                            </DropdownMenu>
+                                    <div className={"flex gap-2 px-2 py-1 items-center rounded-md hover:bg-secondary hover:text-primary"}>
+                                        <Settings size={16}/>
+                                        <p>Settings</p>
+                                    </div>
+                                    <div className={"flex gap-2 px-2 py-1 items-center rounded-md hover:bg-error/10 text-error"}>
+                                        <LogOut size={16}/>
+                                        <p>Logout</p>
+                                    </div>
+
+                                </PopoverContent>
+                            </Popover>
+
                         </SidebarMenuItem>
                     </SidebarMenu>
                 </SidebarFooter>

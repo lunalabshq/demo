@@ -8,85 +8,122 @@ import {
     SidebarFooter,
     SidebarGroupLabel,
     SidebarMenu,
-    SidebarMenuItem,
     DropdownMenu,
     SidebarMenuAction,
     SidebarMenuButton,
     Avatar,
     AvatarImage,
+    AvatarFallback,
+    useSidebar,
+    PopoverTrigger,
+    SidebarMenuItem,
+    PopoverContent,
+    Popover,
 } from "lunalabs-ui"
-import {projects} from "@/data"
+import {projects} from "@/lib/mockup-data/projects"
+import {Box, Calendar, ChevronsUpDown, LayoutPanelLeft, LogOut, MoreHorizontal, Settings, Share, Trash, User} from "lucide-react"
 import type { MenuItem } from "@/lib/menu-types"
 import type React from "react"
 
 const CustomSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
 
+    const { state } = useSidebar()
+
     const profileItems: MenuItem[] = [
+        {label: "Profile", type: "item", icon: <User size={12}/>},
+        {label: "Settings", type: "item", icon: <Settings size={12}/>},
+        {label: "Logout", type: "item", icon: <LogOut size={12}/>}
     ]
 
     const projectItems: MenuItem[] = [
+        {label: "Project Actions", type: "label"},
+        {label: "Share Project", type: "item", icon: <Share size={12}/>},
+        {label: "Delete", type: "item", icon: <Trash size={12}/>},
+        {label: "Leave", type: "item", icon: <LogOut size={12}/>}
     ]
 
     const sidebarItems = [
         {
             title: "Dashboard",
             url: "",
+            icon: <LayoutPanelLeft size={16} />,
+            selected: true,
+            tooltip: {
+                message: "Dashboard",
+            }
         },
         {
             title: "Projects",
+            url: "",
+            icon: <Box size={16} />,
+            selected: false,
+            tooltip: {
+                message: "Projects",
+            }
         },
         {
+            title: "Calendar",
+            url: "",
+            icon: <Calendar size={16} />,
+            selected: false,
+            tooltip: {
+                message: "Calendar",
+            }
         },
     ]
 
     return (
-            <Sidebar collapsible="icon" className={"sticky"}>
-                <SidebarHeader/>
-                <SidebarContent>
-                    <SidebarGroup>
-                        <SidebarGroupLabel>Platform</SidebarGroupLabel>
-                            <SidebarMenu>
-                                {/* biome-ignore lint/suspicious/noExplicitAny: <explanation> */}
-                                {sidebarItems?.map((item: any) => (
-                                    <SidebarMenuItem key={item.title}>
-                                            {item.icon}
-                                            <a href={item.url}>
-                                                <span>{item.title}</span>
-                                            </a>
-                                        </SidebarMenuButton>
-                                    </SidebarMenuItem>
-                                ))}
-                            </SidebarMenu>
-                    </SidebarGroup>
-                    <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-                        <SidebarGroupLabel>Projects</SidebarGroupLabel>
-                        <SidebarMenu>
-                            {projects.map((item) => (
-                                <SidebarMenuItem key={item.title} className={"h-8"}>
-                                    <SidebarMenuButton asChild className={"h-8"}>
-                                        <a href={item.url}>
-                                            <span>{item.title}</span>
-                                        </a>
-                                    </SidebarMenuButton>
-                                        <SidebarMenuAction showOnHover asChild>
-                                            <MoreHorizontal />
-                                            <span className="sr-only">More</span>
-                                        </SidebarMenuAction>
-                                    </DropdownMenu>
-                                </SidebarMenuItem>
-                            ))}
-                            <SidebarMenuItem>
-                                <SidebarMenuButton className="text-secondary/70">
-                                    <MoreHorizontal className="text-secondary/70" />
-                                    <span>More</span>
+        <Sidebar collapsible="icon" className={"sticky border-none"}>
+            <SidebarHeader/>
+            <SidebarContent>
+                <SidebarGroup>
+                    <SidebarGroupLabel>Menu</SidebarGroupLabel>
+                    <SidebarMenu>
+                        {/* biome-ignore lint/suspicious/noExplicitAny: <explanation> */}
+                        {sidebarItems?.map((item: any) => (
+                            <SidebarMenuItem key={item.title}>
+                                <SidebarMenuButton tooltip={item.tooltip} isActive={item.selected}>
+                                    {item.icon}
+                                    <a href={item.url}>
+                                        <span>{item.title}</span>
+                                    </a>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
-                        </SidebarMenu>
-                    </SidebarGroup>
-                </SidebarContent>
-                <SidebarFooter>
+                        ))}
+                    </SidebarMenu>
+                </SidebarGroup>
+                <SidebarGroup className="group-data-[collapsible=icon]:hidden">
+                    <SidebarGroupLabel>Projects</SidebarGroupLabel>
                     <SidebarMenu>
+                        {projects.map((item) => (
+                            <SidebarMenuItem key={item.title} className={"h-8"}>
+                                <SidebarMenuButton asChild className={"h-8"}>
+                                    <a href={item.url}>
+                                        <span>{item.title}</span>
+                                    </a>
+                                </SidebarMenuButton>
+                                <DropdownMenu items={projectItems} asChild={true} align={"start"} side={"right"}>
+                                    <SidebarMenuAction showOnHover asChild>
+                                        <MoreHorizontal />
+                                        <span className="sr-only">More</span>
+                                    </SidebarMenuAction>
+                                </DropdownMenu>
+                            </SidebarMenuItem>
+                        ))}
                         <SidebarMenuItem>
+                            <SidebarMenuButton className="text-secondary/70">
+                                <MoreHorizontal className="text-secondary/70" />
+                                <span>More</span>
+                            </SidebarMenuButton>
+                        </SidebarMenuItem>
+                    </SidebarMenu>
+                </SidebarGroup>
+            </SidebarContent>
+            <SidebarFooter>
+                <SidebarMenu>
+                    <SidebarMenuItem>
+                        <Popover>
+                            <PopoverTrigger asChild>
                                 <SidebarMenuButton
                                     className="h-10 data-[state=open]:bg-secondary data-[state=open]:text-primary justify-between group-data-[collapsible=icon]:!p-0 group-data-[collapsible=icon]:hover:bg-transparent group-data-[collapsible=icon]:!h-10"
                                 >
@@ -102,10 +139,34 @@ const CustomSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
                                     </div>
                                     <ChevronsUpDown className="ml-auto size-4" />
                                 </SidebarMenuButton>
-                        </SidebarMenuItem>
-                    </SidebarMenu>
-                </SidebarFooter>
-            </Sidebar>
+                            </PopoverTrigger>
+                            <PopoverContent
+                                className={"p-1 w-48 gap-1"}
+                                side={state === "expanded" ? "top" : "right"}
+                                align={state === "expanded" ? "start" : "end"}
+                                sideOffset={state === "expanded" ? 8 : 16}
+
+                            >
+                                <div className={"flex gap-2 px-2 py-1 items-center rounded-md hover:bg-secondary hover:text-primary"}>
+                                    <User size={16}/>
+                                    <p>Profile</p>
+                                </div>
+                                <div className={"flex gap-2 px-2 py-1 items-center rounded-md hover:bg-secondary hover:text-primary"}>
+                                    <Settings size={16}/>
+                                    <p>Settings</p>
+                                </div>
+                                <div className={"flex gap-2 px-2 py-1 items-center rounded-md hover:bg-error/10 text-error"}>
+                                    <LogOut size={16}/>
+                                    <p>Logout</p>
+                                </div>
+
+                            </PopoverContent>
+                        </Popover>
+
+                    </SidebarMenuItem>
+                </SidebarMenu>
+            </SidebarFooter>
+        </Sidebar>
     )
 }
 

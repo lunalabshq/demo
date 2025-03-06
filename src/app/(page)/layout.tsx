@@ -3,24 +3,22 @@
 import type {ReactNode} from "react"
 import CustomSidebar from "@/components/CustomSidebar"
 import {
-    Avatar, AvatarFallback,
     Breadcrumb,
     BreadcrumbItem,
-    BreadcrumbLink, BreadcrumbPage,
-    BreadcrumbSeparator, Button, Input, Popover, PopoverContent, PopoverTrigger,
-    SidebarInset, SidebarProvider,
+    BreadcrumbPage,
+    Input,
+    SidebarInset,
+    SidebarProvider,
     SidebarTrigger
 } from "lunalabs-ui"
-import {Bell} from "lucide-react"
-import {notifications} from "@/data"
 import Notification from "@/components/Notification"
 
 export default function Layout({children}: Readonly<{ children: ReactNode }>) {
     return (
-        <SidebarProvider className={"w-auto"}>
+        <SidebarProvider className={"w-auto bg-primary"}>
             <CustomSidebar/>
-            <SidebarInset className={"bg-secondary"}>
-                <div className="flex top-0 h-12 shrink-0 items-center gap-4 border-b border-main px-4 bg-secondary shadow-xs justify-between">
+            <div className={"flex flex-col gap-4 m-4 rounded-md w-full min-h-[calc(100vh-2rem)] bg-secondary border border-main"}>
+                <div className="flex top-0 h-12 shrink-0 items-center gap-4 rounded-t-md border-b border-main px-4 bg-secondary shadow-xs justify-between">
                     <div className={"flex items-center gap-4"}>
                         <SidebarTrigger className="-ml-1" size={18}/>
                         <Breadcrumb>
@@ -38,7 +36,7 @@ export default function Layout({children}: Readonly<{ children: ReactNode }>) {
                 <div className="flex flex-1 flex-col gap-4 p-4">
                     {children}
                 </div>
-            </SidebarInset>
+            </div>
         </SidebarProvider>
 )
 }

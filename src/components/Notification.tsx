@@ -1,6 +1,6 @@
 import {Avatar, AvatarFallback, Button, Popover, PopoverContent, PopoverTrigger} from "lunalabs-ui"
 import {Bell} from "lucide-react"
-import {notifications} from "@/data"
+import {notifications} from "@/lib/mockup-data/notifications"
 
 function Notification() {
     return (
@@ -15,9 +15,9 @@ function Notification() {
             </PopoverTrigger>
             <PopoverContent align={"end"} className={"p-1 space-y-1"}>
                 {notifications.map((item) => (
-                    <div key={item.title} className="flex gap-4 items-center px-2 py-1 rounded-md hover:bg-secondary text-xs">
+                    <div key={item.title} className="flex gap-4 items-center px-2 py-1 rounded-md hover:bg-secondary text-xs cursor-pointer">
                         <Avatar className="h-6 w-6">
-                            <AvatarFallback className={"from-green-400 to-orange-300"}/>
+                            <AvatarFallback className={item.color}/>
                         </Avatar>
                         <div className={"w-full"}>
                             <div className="font-semibold">{item.title}</div>

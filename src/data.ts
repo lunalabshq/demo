@@ -1,17 +1,17 @@
 export const projects = [
     {
-        title: "Luna Labs UI",
-        description: "A collection of accessible and customizable React components.",
-        url: "https://luna-labs.github.io/icons/",
+        title: "Market Research",
+        description: "Market research and analysis for a new product.",
+        url: "",
     },
     {
-        title: "Luna Labs Design",
-        description: "A collection of accessible and customizable Figma components.",
-        url: "https://luna-labs.github.io/icons/",
+        title: "UI Design",
+        description: "Designing a new user interface for the mobile app.",
+        url: "",
     },
     {
-        title: "Luna Labs Icons",
-        description: "A collection of accessible and customizable SVG icons.",
-        url: "https://luna-labs.github.io/icons/",
+        title: "Development",
+        description: "Current state of development.",
+        url: "",
     }
 ]

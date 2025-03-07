@@ -1,42 +1,47 @@
 "use client"
 
-import {assignedTasks} from "@/lib/mockup-data/assigned-tasks"
 import {StatusIcon} from "@/components/StatusIcon"
-import {Button, DropdownMenu, type MenuItem} from "lunalabs-ui"
+import {Button, DropdownMenu, type MenuItem, tooltip} from "lunalabs-ui"
 import {Binoculars, CheckCheck, EllipsisVertical, ExternalLink, Share} from "lucide-react"
 import type React from "react"
+import {projects} from "@/lib/mockup-data/projects"
 
-function AssignedTasks() {
+function AssignedProjects() {
 
     const dropdownItems: MenuItem[] = [
-        {label: "Task Actions", type: "label"},
+        {label: "Project Actions", type: "label"},
         {label: "Share", type: "item", icon: <Share size={12}/>},
         {label: "Open", type: "item", icon: <ExternalLink size={12}/>},
         {label: "Complete", type: "item", icon: <CheckCheck size={12}/>}
     ]
 
+    const buttonTooltip = tooltip<HTMLButtonElement>({
+        message: "Go to projects page",
+        anchor: "lc"
+    })
+
     return (
         <div className={"flex flex-col gap-4 w-full bg-tertiary rounded-md p-4"}>
             <div className={"flex items-center justify-between"}>
-                <p className={"font-medium text-primary"}>{`Assigned Tasks (${assignedTasks.length})`}</p>
-                <Button className={"gap-2 text-sm"} variant={"ghost"}>
+                <p className={"font-medium text-primary"}>{`Assigned Projects (${projects.length})`}</p>
+                <Button className={"gap-2 text-sm"} variant={"ghost"} {...buttonTooltip}>
                     <Binoculars size={14}/>
                     View All
                 </Button>
             </div>
             <div className={"flex flex-col"}>
-                {assignedTasks.map((task) => (
-                    <div key={task.title} className={"flex w-full text-sm h-10 gap-4 justify-between items-center pl-4"}>
+                {projects.map((project) => (
+                    <div key={project.title} className={"flex w-full text-sm h-10 gap-4 justify-between items-center pl-4"}>
 
                         <div className={"flex gap-4 items-center"}>
-                            <StatusIcon statusName={task.status}/>
-                            <div className={"text-secondary"}>{task.title}</div>
+                            <StatusIcon statusName={project.status}/>
+                            <div className={"text-secondary"}>{project.title}</div>
                         </div>
 
                         <div className={"flex gap-4 items-center"}>
-                            <div className={"text-tertiary text-xs"}>{task.deadline}</div>
+                            <div className={"text-tertiary text-xs"}>{project.deadline}</div>
                             <DropdownMenu asChild items={dropdownItems} align={"end"}>
-                                <Button className={"px-1.5 border border-main"} variant={"ghost"}>
+                                <Button className={"px-1.5"} variant={"default"}>
                                     <EllipsisVertical size={16}/>
                                 </Button>
                             </DropdownMenu>
@@ -48,4 +53,4 @@ function AssignedTasks() {
     )
 }
 
-export {AssignedTasks}
+export {AssignedProjects}

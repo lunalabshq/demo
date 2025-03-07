@@ -18,22 +18,28 @@ import {
     PopoverTrigger,
     SidebarMenuItem,
     PopoverContent,
-    Popover,
+    Popover, Button,
 } from "lunalabs-ui"
 import {projects} from "@/lib/mockup-data/projects"
-import {Box, Calendar, ChevronsUpDown, LayoutPanelLeft, LogOut, MoreHorizontal, Settings, Share, Trash, User} from "lucide-react"
+import {
+    Box,
+    Calendar,
+    ChevronsUpDown,
+    LayoutPanelLeft,
+    LogOut,
+    MoreHorizontal,
+    Plus,
+    Settings,
+    Share,
+    Trash,
+    User
+} from "lucide-react"
 import type { MenuItem } from "@/lib/menu-types"
 import type React from "react"
 
-const CustomSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
+function CustomSidebar() {
 
     const { state } = useSidebar()
-
-    const profileItems: MenuItem[] = [
-        {label: "Profile", type: "item", icon: <User size={12}/>},
-        {label: "Settings", type: "item", icon: <Settings size={12}/>},
-        {label: "Logout", type: "item", icon: <LogOut size={12}/>}
-    ]
 
     const projectItems: MenuItem[] = [
         {label: "Project Actions", type: "label"},
@@ -74,7 +80,16 @@ const CustomSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
 
     return (
         <Sidebar collapsible="icon" className={"sticky border-none"}>
-            <SidebarHeader/>
+            <SidebarHeader>
+                <div className={"flex items-center justify-between gap-4 h-8 pt-3 group-data-[collapsible=icon]:hidden"}>
+                    <div className={"w-full h-8 flex items-center justify-center bg-brand/20 text-secondary rounded-md font-mono shadow-md"}>
+                        Acme Inc.
+                    </div>
+                    <Button className={"w-max px-2"} variant={"ghost"}>
+                        <Plus size={16} />
+                    </Button>
+                </div>
+            </SidebarHeader>
             <SidebarContent>
                 <SidebarGroup>
                     <SidebarGroupLabel>Menu</SidebarGroupLabel>
@@ -82,7 +97,7 @@ const CustomSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
                         {/* biome-ignore lint/suspicious/noExplicitAny: <explanation> */}
                         {sidebarItems?.map((item: any) => (
                             <SidebarMenuItem key={item.title}>
-                                <SidebarMenuButton tooltip={item.tooltip} isActive={item.selected}>
+                                <SidebarMenuButton isActive={item.selected}>
                                     {item.icon}
                                     <a href={item.url}>
                                         <span>{item.title}</span>

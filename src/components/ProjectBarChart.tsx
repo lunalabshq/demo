@@ -9,14 +9,19 @@ import {
     ChartTooltipContent,
     Select, SelectContent, SelectGroup, SelectItem, SelectTrigger,
     SelectValue,
-    useTooltip
+    tooltip,
 } from "lunalabs-ui"
 import {Bar, BarChart, XAxis } from "recharts";
 import React from "react"
 import {CalendarClock, Info} from "lucide-react"
 
 function ProjectBarChart() {
-    const {addTooltip, removeTooltip} = useTooltip()
+
+    const infoTooltip = tooltip<HTMLDivElement>({
+        message: "This chart shows the number of projects completed by each team in the selected timeframe",
+        delay: 200,
+        width: 200
+    })
 
     const chartConfig = {
         first: {
@@ -33,24 +38,18 @@ function ProjectBarChart() {
         day: `Day ${index + 1}`,
         first: Math.floor(Math.random() * 300) + 50,
         second: Math.floor(Math.random() * 200) + 20
-    }));
+    }))
 
     return (
         <div className={"flex flex-col gap-4 w-full h-full bg-tertiary rounded-md overflow-hidden p-4"}>
             <div className={"flex items-center justify-between"}>
                 <div className={"flex gap-2 items-center"}>
                     <p className={"font-medium text-primary"}>Projects completed</p>
-                    <Info size={14}
-                          className={"text-tertiary"}
-                          onMouseEnter={(e) =>
-                              addTooltip({
-                                  message: "This chart shows the number of projects completed by each team in the selected timeframe",
-                                  trigger: e.currentTarget.getBoundingClientRect(),
-                                  delay: 200
-                              })
-                          }
-                          onMouseLeave={removeTooltip}
-                    />
+                    <div {...infoTooltip}>
+                        <Info size={14}
+                              className={"text-tertiary"}
+                        />
+                    </div>
                 </div>
                 <Select value={"30 days"}>
                     <SelectTrigger className="w-[180px] shadow-sm">
@@ -77,8 +76,8 @@ function ProjectBarChart() {
                     />
                     <ChartTooltip content={<ChartTooltipContent/>}/>
                     <ChartLegend content={<ChartLegendContent/>}/>
-                    <Bar dataKey="first" fill="#205417" radius={4}/>
-                    <Bar dataKey="second" fill="#68db53" radius={4}/>
+                    <Bar dataKey="first" fill={chartConfig.first.color} radius={4}/>
+                    <Bar dataKey="second" fill={chartConfig.second.color} radius={4}/>
                 </BarChart>
             </ChartContainer>
         </div>

@@ -12,10 +12,11 @@ import {
     tooltip,
 } from "lunalabs-ui"
 import {Bar, BarChart, XAxis } from "recharts";
-import React from "react"
+import React, {useMemo, useState} from "react"
 import {CalendarClock, Info} from "lucide-react"
 
 function ProjectBarChart() {
+    const [range, setRange] = useState<number>(30)
 
     const infoTooltip = tooltip<HTMLDivElement>({
         message: "This chart shows the number of projects completed by each team in the selected timeframe",
@@ -34,11 +35,13 @@ function ProjectBarChart() {
         }
     } satisfies ChartConfig
 
-    const chartData = Array.from({ length: 30 }, (_, index) => ({
-        day: `Day ${index + 1}`,
-        first: Math.floor(Math.random() * 300) + 50,
-        second: Math.floor(Math.random() * 200) + 20
-    }))
+    const chartData = useMemo(() =>
+        Array.from({ length: 30 }, (_, index) => ({
+            day: `Day ${index + 1}`,
+            first: Math.floor(Math.random() * 300) + 50,
+            second: Math.floor(Math.random() * 200) + 20
+        })
+    ), [])
 
     return (
         <div className={"flex flex-col gap-4 w-full h-full bg-tertiary rounded-md overflow-hidden p-4"}>
@@ -51,24 +54,25 @@ function ProjectBarChart() {
                         />
                     </div>
                 </div>
-                <Select value={"30 days"}>
+                <Select
+                    value={`${range} days`}
+                    onValueChange={(value) => setRange(Number.parseInt(value.split(" ")[0]))}
+                >
                     <SelectTrigger className="w-[180px] shadow-sm">
                         <CalendarClock size={14}/>
                         <SelectValue placeholder="Select a timeframe"/>
                     </SelectTrigger>
                     <SelectContent>
-                        <SelectGroup>
-                            <SelectItem value="7 days">7 days</SelectItem>
-                            <SelectItem value="14 days">14 days</SelectItem>
-                            <SelectItem value="30 days">30 days</SelectItem>
-                        </SelectGroup>
+                        <SelectItem value="7 days">7 days</SelectItem>
+                        <SelectItem value="14 days">14 days</SelectItem>
+                        <SelectItem value="30 days">30 days</SelectItem>
                     </SelectContent>
                 </Select>
             </div>
-            <ChartContainer config={chartConfig} className="min-h-[200px] max-h-[400px]">
-                <BarChart accessibilityLayer data={chartData}>
+            <ChartContainer config={chartConfig} className="min-h-[200px] max-h-[310px]">
+                <BarChart accessibilityLayer data={chartData.slice(0, range)}>
                     <XAxis
-                        interval={5}
+                        interval={range === 7 ? 0 : range > 20 ? 4 : 1}
                         dataKey="day"
                         tickLine={false}
                         tickMargin={10}

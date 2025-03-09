@@ -5,6 +5,7 @@ import {Button, DropdownMenu, type MenuItem, tooltip} from "lunalabs-ui"
 import {Binoculars, CheckCheck, EllipsisVertical, ExternalLink, Share} from "lucide-react"
 import type React from "react"
 import {projects} from "@/lib/mockup-data/projects"
+import {TopicBadge} from "@/components/TopicBadge"
 
 function AssignedProjects() {
 
@@ -35,7 +36,8 @@ function AssignedProjects() {
 
                         <div className={"flex gap-4 items-center"}>
                             <StatusIcon statusName={project.status}/>
-                            <div className={"text-secondary"}>{project.title}</div>
+                            <div className={"text-primary"}>{project.title}</div>
+                            <TopicBadge topicName={project.topic}/>
                         </div>
 
                         <div className={"flex gap-4 items-center"}>

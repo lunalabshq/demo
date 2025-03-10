@@ -36,6 +36,7 @@ import {
 } from "lucide-react"
 import type { MenuItem } from "@/lib/menu-types"
 import type React from "react"
+import {cn} from "@/lib/utils"
 
 function CustomSidebar() {
 
@@ -81,14 +82,16 @@ function CustomSidebar() {
     return (
         <Sidebar collapsible="icon" className={"sticky border-none"}>
             <SidebarHeader>
-                <div className={"flex items-center justify-between gap-4 h-8 pt-3 group-data-[collapsible=icon]:hidden"}>
-                    <div className={"w-full h-8 flex items-center justify-center bg-brand/20 text-secondary rounded-md font-mono shadow-md"}>
-                        Acme Inc.
-                    </div>
-                    <Button className={"w-max px-2"} variant={"ghost"}>
-                        <Plus size={16} />
-                    </Button>
-                </div>
+                <SidebarMenu>
+                    <SidebarMenuItem className={"flex items-center justify-between gap-4 h-8 pt-3 group-data-[collapsible=icon]:hidden"}>
+                        <div className={"w-full h-8 flex items-center justify-center bg-brand/20 text-secondary rounded-md font-mono shadow-md"}>
+                            Acme Inc.
+                        </div>
+                        <Button className={"w-max px-2"} variant={"ghost"}>
+                            <Plus size={16} />
+                        </Button>
+                    </SidebarMenuItem>
+                </SidebarMenu>
             </SidebarHeader>
             <SidebarContent>
                 <SidebarGroup>
@@ -140,7 +143,11 @@ function CustomSidebar() {
                         <Popover>
                             <PopoverTrigger asChild>
                                 <SidebarMenuButton
-                                    className="h-10 data-[state=open]:bg-secondary data-[state=open]:text-primary justify-between group-data-[collapsible=icon]:!p-0 group-data-[collapsible=icon]:hover:bg-transparent group-data-[collapsible=icon]:!h-10"
+                                    className={cn(
+                                        "h-10 mb-2 data-[state=open]:bg-secondary data-[state=open]:text-primary justify-between",
+                                        "group-data-[collapsible=icon]:!p-0 group-data-[collapsible=icon]:hover:bg-transparent",
+                                        "group-data-[collapsible=icon]:!h-10 transition-all"
+                                    )}
                                 >
                                     <div className={"flex flex-row space-x-2"}>
                                         <Avatar className="h-8 w-8">

@@ -44,7 +44,7 @@ function ProjectBarChart() {
     ), [])
 
     return (
-        <div className={"flex flex-col gap-4 w-full h-full bg-tertiary rounded-md overflow-hidden p-4"}>
+        <div className={"flex flex-col gap-4 w-full h-full justify-between bg-tertiary rounded-md overflow-hidden p-4"}>
             <div className={"flex items-center justify-between"}>
                 <div className={"flex gap-2 items-center"}>
                     <p className={"font-medium text-primary"}>Projects completed</p>
@@ -69,7 +69,7 @@ function ProjectBarChart() {
                     </SelectContent>
                 </Select>
             </div>
-            <ChartContainer config={chartConfig} className="min-h-[200px] max-h-[310px]">
+            <ChartContainer config={chartConfig} className="min-h-[200px] max-h-[350px]">
                 <BarChart accessibilityLayer data={chartData.slice(0, range)}>
                     <XAxis
                         interval={range === 7 ? 0 : range > 20 ? 4 : 1}

@@ -18,7 +18,8 @@ import {
     PopoverTrigger,
     SidebarMenuItem,
     PopoverContent,
-    Popover, Button,
+    Popover, Button, DialogTrigger,
+    Dialog,
 } from "lunalabs-ui"
 import {projects} from "@/lib/mockup-data/projects"
 import {
@@ -37,6 +38,7 @@ import {
 import type { MenuItem } from "@/lib/menu-types"
 import type React from "react"
 import {cn} from "@/lib/utils"
+import { ProjectDialog } from "./dialogs/ProjectDialog"
 
 function CustomSidebar() {
 
@@ -87,9 +89,14 @@ function CustomSidebar() {
                         <div className={"w-full h-8 flex items-center justify-center bg-brand/20 text-secondary rounded-md font-mono shadow-md"}>
                             Acme Inc.
                         </div>
-                        <Button className={"w-max px-2"} variant={"ghost"}>
-                            <Plus size={16} />
-                        </Button>
+                        <Dialog>
+                            <DialogTrigger asChild>
+                                <Button className={"w-max px-2"} variant={"ghost"}>
+                                    <Plus size={16} />
+                                </Button>
+                            </DialogTrigger>
+                            <ProjectDialog/>
+                        </Dialog>
                     </SidebarMenuItem>
                 </SidebarMenu>
             </SidebarHeader>
@@ -144,9 +151,9 @@ function CustomSidebar() {
                             <PopoverTrigger asChild>
                                 <SidebarMenuButton
                                     className={cn(
-                                        "h-10 mb-2 data-[state=open]:bg-secondary data-[state=open]:text-primary justify-between",
+                                        "h-12 mb-2 data-[state=open]:bg-secondary data-[state=open]:text-primary justify-between",
                                         "group-data-[collapsible=icon]:!p-0 group-data-[collapsible=icon]:hover:bg-transparent",
-                                        "group-data-[collapsible=icon]:!h-10 transition-all"
+                                        "group-data-[collapsible=icon]:!h-12 transition-all"
                                     )}
                                 >
                                     <div className={"flex flex-row space-x-2"}>

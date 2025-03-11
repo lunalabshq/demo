@@ -83,14 +83,14 @@ export const FinishedIcon: React.FC = () => {
     )
 }
 
-export const status: Status[] = [
+export const allStatus: Status[] = [
     { name: 'In Progress', color: '#0ea5e9', icon: InProgressIcon },
     { name: 'Not Started', color: '#f97316', icon: NotStartedIcon },
     { name: 'Finished', color: '#ec4899', icon: FinishedIcon }
 ]
 
 export const StatusIcon: React.FC<{ statusName: string }> = ({ statusName }) => {
-    const currentStatus = status.find((s) => s.name === statusName)
+    const currentStatus = allStatus.find((s) => s.name === statusName)
     if (!currentStatus) return null
 
     const IconComponent = currentStatus.icon

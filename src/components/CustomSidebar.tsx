@@ -26,6 +26,7 @@ import {
     Box,
     Calendar,
     ChevronsUpDown,
+    Clover,
     LayoutPanelLeft,
     LogOut,
     MoreHorizontal,
@@ -33,16 +34,19 @@ import {
     Settings,
     Share,
     Trash,
-    User
+    User, X
 } from "lucide-react"
 import type { MenuItem } from "@/lib/menu-types"
 import type React from "react"
 import {cn} from "@/lib/utils"
 import { ProjectDialog } from "./dialogs/ProjectDialog"
 import { useState } from "react"
+import {CONTAINER_STYLES} from "@/lib/consts"
 
 function CustomSidebar() {
     const [dialogOpen, setDialogOpen] = useState(false)
+    const [openDropdownId, setOpenDropdownId] = useState<string | null>(null)
+    const [showPlanPanel, setShowPlanPanel] = useState(true)
     const { state } = useSidebar()
 
     const projectItems: MenuItem[] = [
@@ -90,18 +94,7 @@ function CustomSidebar() {
                         <div className={"w-full h-8 flex items-center justify-center bg-brand/20 text-secondary rounded-md font-mono shadow-md"}>
                             Acme Inc.
                         </div>
-                        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-                            <DialogTrigger asChild>
-                                <Button
-                                    data-state={dialogOpen ? "open" : "closed"}
-                                    className={"w-max px-2 data-[state=open]:bg-inverted/10 data-[state=open]:text-primary"}
-                                    variant={"ghost"}
-                                >
-                                    <Plus size={16} />
-                                </Button>
-                            </DialogTrigger>
-                            <ProjectDialog/>
-                        </Dialog>
+                        <ProjectDialog/>
                     </SidebarMenuItem>
                 </SidebarMenu>
             </SidebarHeader>
@@ -132,8 +125,20 @@ function CustomSidebar() {
                                         <span>{item.title}</span>
                                     </a>
                                 </SidebarMenuButton>
-                                <DropdownMenu items={projectItems} asChild={true} align={"start"} side={"right"}>
-                                    <SidebarMenuAction showOnHover asChild>
+                                <DropdownMenu
+                                    items={projectItems}
+                                    asChild
+                                    align={"start"}
+                                    side={"right"}
+                                    open={openDropdownId === item.title}
+                                    onOpenChange={(open) => setOpenDropdownId(open ? item.title : null)}
+                                >
+                                    <SidebarMenuAction
+                                        showOnHover
+                                        asChild
+                                        data-state={openDropdownId === item.title ? "open" : "closed"}
+                                        className={"data-[state=open]:bg-inverted/10 data-[state=open]:text-primary"}
+                                    >
                                         <MoreHorizontal />
                                         <span className="sr-only">More</span>
                                     </SidebarMenuAction>
@@ -150,13 +155,31 @@ function CustomSidebar() {
                 </SidebarGroup>
             </SidebarContent>
             <SidebarFooter>
+                {showPlanPanel &&
+                    <SidebarMenu>
+                        <SidebarMenuItem>
+                            <div className={"flex gap-2 p-4 rounded-md bg-secondary shadow-md text-xs border border-main/20 transition-all group-data-[collapsible=icon]:hidden overflow-hidden"}>
+                                <div className={"flex flex-col gap-2"}>
+                                    <p>If you want to create a team, you need to upgrade your plan.</p>
+                                    <div className={"flex gap-1 items-center"}>
+                                        <p className={"text-primary"}>Your current Plan:</p>
+                                        <Clover size={12} className={"text-[#68db53]"}/>
+                                        <p className={"text-[#68db53]"}>Basic</p>
+                                    </div>
+                                    <p className={"text-info underline cursor-pointer transition-all hover:-translate-y-0.5"}>Upgrade now</p>
+                                </div>
+                                <X size={20} className={"cursor-pointer"} onClick={() => setShowPlanPanel(false)}/>
+                            </div>
+                        </SidebarMenuItem>
+                    </SidebarMenu>
+                }
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <Popover>
                             <PopoverTrigger asChild>
                                 <SidebarMenuButton
                                     className={cn(
-                                        "h-12 mb-2 data-[state=open]:bg-secondary data-[state=open]:text-primary justify-between",
+                                        "h-12 mb-2 hover:bg-secondary data-[state=open]:bg-secondary data-[state=open]:text-primary justify-between",
                                         "group-data-[collapsible=icon]:!p-0 group-data-[collapsible=icon]:hover:bg-transparent",
                                         "group-data-[collapsible=icon]:!h-12 transition-all"
                                     )}
@@ -175,7 +198,7 @@ function CustomSidebar() {
                                 </SidebarMenuButton>
                             </PopoverTrigger>
                             <PopoverContent
-                                className={"p-1 w-48 gap-1"}
+                                className={"p-2 w-60 gap-1"}
                                 side={state === "expanded" ? "top" : "right"}
                                 align={state === "expanded" ? "start" : "end"}
                                 sideOffset={state === "expanded" ? 8 : 16}

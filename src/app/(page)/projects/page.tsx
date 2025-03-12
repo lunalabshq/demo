@@ -11,13 +11,18 @@ import {
     VisibilityState
 } from "@tanstack/table-core"
 import {Button, Checkbox, Input, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "lunalabs-ui"
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
+import {ArrowUpDown, ChevronDown, ChevronsUpDown, ChevronUp, MoreHorizontal} from "lucide-react"
 import {flexRender, useReactTable} from "@tanstack/react-table"
 import {Project, projects } from "@/lib/mockup-data/projects"
 import {StatusIcon} from "@/components/StatusIcon"
 import {TopicBadge} from "@/components/TopicBadge"
+import { cn } from "@/lib/utils"
 
 export default function Projects() {
+    const [sorting, setSorting] = useState<SortingState>([])
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+    const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
+    const [rowSelection, setRowSelection] = useState({})
 
     const columns = useMemo<ColumnDef<Project>[]>(() => [
         {
@@ -50,10 +55,11 @@ export default function Projects() {
                 return (
                     <Button
                         variant="ghost"
+                        className={"hover:bg-transparent"}
                         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                     >
                         Status
-                        <ArrowUpDown size={14} className={"ml-0.5 text-secondary"}/>
+                        {column.getIsSorted() && <ChevronUp size={12} className={cn("ml-0.5 text-tertiary", column.getIsSorted() === "desc" && "rotate-180 transition-all", column.getIsSorted() === "asc" && "rotate-0 transition-all")}/>}
                     </Button>
                 )
             },
@@ -72,10 +78,11 @@ export default function Projects() {
                 return (
                     <Button
                         variant="ghost"
+                        className={"hover:bg-transparent"}
                         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                     >
                         Topic
-                        <ArrowUpDown size={14} className={"ml-0.5 text-secondary"}/>
+                        {column.getIsSorted() && <ChevronUp size={12} className={cn("ml-0.5 text-tertiary", column.getIsSorted() === "desc" && "rotate-180 transition-all", column.getIsSorted() === "asc" && "rotate-0 transition-all")}/>}
                     </Button>
                 )
             },
@@ -83,8 +90,19 @@ export default function Projects() {
         },
         {
             accessorKey: "deadline",
-            header: () => <div className="text-right">Deadline</div>,
-            cell: ({ row }) => <div className="text-right font-medium">{row.getValue("deadline")}</div>,
+            header: ({ column }) => {
+                return (
+                    <Button
+                        variant="ghost"
+                        className={"hover:bg-transparent"}
+                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                    >
+                        Deadline
+                        {column.getIsSorted() && <ChevronUp size={12} className={cn("ml-0.5 text-tertiary", column.getIsSorted() === "desc" && "rotate-180 transition-all", column.getIsSorted() === "asc" && "rotate-0 transition-all")}/>}
+                    </Button>
+                )
+            },
+            cell: ({ row }) => <div className="font-medium">{row.getValue("deadline")}</div>,
         },
         {
             id: "actions",
@@ -99,11 +117,6 @@ export default function Projects() {
             }
         }
     ], [])
-
-    const [sorting, setSorting] = useState<SortingState>([])
-    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
-    const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
-    const [rowSelection, setRowSelection] = useState({})
 
     const table = useReactTable({
         data: projects,
@@ -125,65 +138,67 @@ export default function Projects() {
     })
 
     return (
-        <div className={"h-full w-full flex flex-col gap-4"}>
-            <div className="flex items-center">
-                <Input
-                    placeholder="Filter projects..."
-                    value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
-                    onChange={(event) => table.getColumn("title")?.setFilterValue(event.target.value)}
-                    className="max-w-sm"
-                />
-                <Button variant="default" className="ml-auto items-center">
-                    Columns
-                    <ChevronDown size={16} className={"ml-1"}/>
-                </Button>
-            </div>
-            <div className="rounded-md">
-                <Table>
-                    <TableHeader>
-                        {table.getHeaderGroups().map((headerGroup) => (
-                            <TableRow key={headerGroup.id}>
-                                {headerGroup.headers.map((header) => {
-                                    return (
-                                        <TableHead key={header.id}>
-                                            {header.isPlaceholder
-                                                ? null
-                                                : flexRender(header.column.columnDef.header, header.getContext())
-                                            }
-                                        </TableHead>
-                                    )
-                                })}
-                            </TableRow>
-                        ))}
-                    </TableHeader>
-                    <TableBody>
-                        {table.getRowModel().rows?.length ? (
-                            table.getRowModel().rows.map((row) => (
-                                <TableRow
-                                    key={row.id}
-                                    data-state={row.getIsSelected() && "selected"}
-                                >
-                                    {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id}>
-                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                        </TableCell>
-                                    ))}
+        <div className={"h-full w-full flex flex-col justify-between gap-4"}>
+            <div className={"flex flex-col gap-4"}>
+                <div className="flex items-center">
+                    <Input
+                        placeholder="Filter projects..."
+                        value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+                        onChange={(event) => table.getColumn("title")?.setFilterValue(event.target.value)}
+                        className="max-w-sm"
+                    />
+                    <Button variant="default" className="ml-auto items-center">
+                        Columns
+                        <ChevronDown size={16} className={"ml-1"}/>
+                    </Button>
+                </div>
+                <div className="rounded-md">
+                    <Table>
+                        <TableHeader>
+                            {table.getHeaderGroups().map((headerGroup) => (
+                                <TableRow key={headerGroup.id}>
+                                    {headerGroup.headers.map((header) => {
+                                        return (
+                                            <TableHead key={header.id}>
+                                                {header.isPlaceholder
+                                                    ? null
+                                                    : flexRender(header.column.columnDef.header, header.getContext())
+                                                }
+                                            </TableHead>
+                                        )
+                                    })}
                                 </TableRow>
-                            ))
-                        ) : (
-                            <TableRow>
-                                <TableCell
-                                    colSpan={columns.length}
-                                    className="h-24 text-center"
-                                >
-                                    No results.
-                                </TableCell>
-                            </TableRow>
-                        )}
-                    </TableBody>
-                </Table>
+                            ))}
+                        </TableHeader>
+                        <TableBody>
+                            {table.getRowModel().rows?.length ? (
+                                table.getRowModel().rows.map((row) => (
+                                    <TableRow
+                                        key={row.id}
+                                        data-state={row.getIsSelected() && "selected"}
+                                    >
+                                        {row.getVisibleCells().map((cell) => (
+                                            <TableCell key={cell.id}>
+                                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                            </TableCell>
+                                        ))}
+                                    </TableRow>
+                                ))
+                            ) : (
+                                <TableRow>
+                                    <TableCell
+                                        colSpan={columns.length}
+                                        className="h-24 text-center"
+                                    >
+                                        No results.
+                                    </TableCell>
+                                </TableRow>
+                            )}
+                        </TableBody>
+                    </Table>
+                </div>
             </div>
-            <div className="flex items-center justify-end space-x-2 py-4">
+            <div className="flex items-center justify-end space-x-2">
                 <div className="flex-1 text-xs text-tertiary">
                     {table.getFilteredSelectedRowModel().rows.length} of{" "}
                     {table.getFilteredRowModel().rows.length} row(s) selected.

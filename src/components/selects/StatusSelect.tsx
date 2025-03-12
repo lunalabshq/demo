@@ -22,7 +22,10 @@ function StatusSelect({status}: StatusSelectProps) {
     return (
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
-                <Button className={"font-normal text-[13px] items-center gap-2"}>
+                <Button
+                    data-state={open ? "open" : "closed"}
+                    className={"font-normal text-[13px] items-center gap-2 data-[state=open]:bg-inverted/10 data-[state=open]:text-primary"}
+                >
                     {value ? <StatusIcon statusName={value}/> : <Hexagon size={12} />}
                     {value ?? "Status"}
                 </Button>

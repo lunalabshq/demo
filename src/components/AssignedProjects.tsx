@@ -6,8 +6,10 @@ import {Binoculars, CheckCheck, EllipsisVertical, ExternalLink, Share} from "luc
 import type React from "react"
 import {projects} from "@/lib/mockup-data/projects"
 import {TopicBadge} from "@/components/TopicBadge"
+import { useState } from "react"
 
 function AssignedProjects() {
+    const [openDropdownId, setOpenDropdownId] = useState<string | null>(null)
 
     const dropdownItems: MenuItem[] = [
         {label: "Project Actions", type: "label"},
@@ -42,8 +44,18 @@ function AssignedProjects() {
 
                         <div className={"flex gap-4 items-center"}>
                             <div className={"text-tertiary text-xs"}>{project.deadline}</div>
-                            <DropdownMenu asChild items={dropdownItems} align={"end"}>
-                                <Button className={"px-1.5"} variant={"default"}>
+                            <DropdownMenu
+                                asChild
+                                items={dropdownItems}
+                                align={"end"}
+                                open={openDropdownId === project.title}
+                                onOpenChange={(open) => setOpenDropdownId(open ? project.title : null)}
+                            >
+                                <Button
+                                    data-state={openDropdownId === project.title ? "open" : "closed"}
+                                    className={"px-1.5 data-[state=open]:bg-inverted/10 data-[state=open]:text-primary"}
+                                    variant={"default"}
+                                >
                                     <EllipsisVertical size={16}/>
                                 </Button>
                             </DropdownMenu>

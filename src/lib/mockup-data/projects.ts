@@ -1,4 +1,14 @@
-export const projects = [
+
+export interface Project {
+    title: string;
+    description: string;
+    url: string;
+    status: string;
+    deadline: string;
+    topic: string;
+}
+
+export const projects: Project[] = [
     {
         title: "Market Research",
         description: "Market research and analysis for a new product.",

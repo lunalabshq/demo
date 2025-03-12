@@ -1,8 +1,9 @@
 "use client"
 
-import {Button, DialogContent, DialogFooter, DialogHeader, DialogTitle, Input, Textarea} from "lunalabs-ui"
+import {Button, DatePicker, DialogContent, DialogFooter, DialogHeader, DialogTitle, Input, Textarea} from "lunalabs-ui"
 import {VisuallyHidden} from "@radix-ui/react-visually-hidden"
 import {StatusSelect} from "@/components/selects/StatusSelect"
+import {TopicSelect} from "@/components/selects/TopicSelect"
 
 function ProjectDialog() {
     return (
@@ -19,7 +20,9 @@ function ProjectDialog() {
                 <Textarea placeholder={"Project Description"} />
             </div>
             <div className={"flex gap-2"}>
-                <StatusSelect status={null} />
+                <StatusSelect/>
+                <TopicSelect/>
+                <DatePicker title={"Due Date"}/>
             </div>
             <DialogFooter>
                 <Button variant="primary" type={"submit"}>Create</Button>

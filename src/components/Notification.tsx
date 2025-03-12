@@ -1,13 +1,19 @@
+"use client"
+
 import {Avatar, AvatarFallback, Button, Popover, PopoverContent, PopoverTrigger} from "lunalabs-ui"
 import {Bell} from "lucide-react"
 import {notifications} from "@/lib/mockup-data/notifications"
+import {useState} from "react"
 
 function Notification() {
+    const [open, setOpen] = useState(false)
+
     return (
-        <Popover>
+        <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
                 <Button
-                    className="hidden md:block items-center p-2"
+                    data-state={open ? "open" : "closed"}
+                    className="hidden md:block items-center p-2 data-[state=open]:bg-inverted/10 data-[state=open]:text-primary"
                     variant={"ghost"}
                 >
                     <Bell size={18} strokeWidth={2.5}/>

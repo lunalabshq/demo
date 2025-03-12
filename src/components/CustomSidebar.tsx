@@ -39,9 +39,10 @@ import type { MenuItem } from "@/lib/menu-types"
 import type React from "react"
 import {cn} from "@/lib/utils"
 import { ProjectDialog } from "./dialogs/ProjectDialog"
+import { useState } from "react"
 
 function CustomSidebar() {
-
+    const [dialogOpen, setDialogOpen] = useState(false)
     const { state } = useSidebar()
 
     const projectItems: MenuItem[] = [
@@ -63,7 +64,7 @@ function CustomSidebar() {
         },
         {
             title: "Projects",
-            url: "",
+            url: "projects",
             icon: <Box size={16} />,
             selected: false,
             tooltip: {
@@ -89,9 +90,13 @@ function CustomSidebar() {
                         <div className={"w-full h-8 flex items-center justify-center bg-brand/20 text-secondary rounded-md font-mono shadow-md"}>
                             Acme Inc.
                         </div>
-                        <Dialog>
+                        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                             <DialogTrigger asChild>
-                                <Button className={"w-max px-2"} variant={"ghost"}>
+                                <Button
+                                    data-state={dialogOpen ? "open" : "closed"}
+                                    className={"w-max px-2 data-[state=open]:bg-inverted/10 data-[state=open]:text-primary"}
+                                    variant={"ghost"}
+                                >
                                     <Plus size={16} />
                                 </Button>
                             </DialogTrigger>

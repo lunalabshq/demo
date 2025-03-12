@@ -2,6 +2,11 @@ import type React from "react"
 import {Badge} from "lunalabs-ui"
 import {GitBranch, Paintbrush, Store} from "lucide-react"
 
+export interface Topic {
+    name: string
+    badge: React.FC
+}
+
 export const MarketingBadge = () => {
     return (
         <Badge className={"bg-violet-500/10 border-violet-500/20 text-violet-500"} title={"Marketing"} icon={<Store size={12}/>}/>
@@ -20,14 +25,14 @@ export const DevelopmentBadge = () => {
     )
 }
 
-export const topics = [
+export const allTopics: Topic[] = [
     { name: 'Marketing', badge: MarketingBadge },
     { name: 'Design', badge: DesignBadge },
     { name: 'Development', badge: DevelopmentBadge }
 ]
 
 export const TopicBadge: React.FC<{ topicName: string }> = ({ topicName }) => {
-    const topic = topics.find((t) => t.name === topicName)
+    const topic = allTopics.find((t) => t.name === topicName)
     if (!topic) return null
 
     const TopicComponent = topic.badge

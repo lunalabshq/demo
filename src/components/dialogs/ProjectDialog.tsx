@@ -17,6 +17,7 @@ import {TopicSelect} from "@/components/selects/TopicSelect"
 import {PenLine, Plus} from "lucide-react"
 import type React from "react"
 import { useState } from "react"
+import {PrioritySelect} from "@/components/selects/PrioritySelect"
 
 function ProjectDialog() {
     const [open, setOpen] = useState(false)
@@ -58,8 +59,9 @@ function ProjectDialog() {
                 </div>
                 <div className={"flex gap-2"}>
                     <StatusSelect/>
+                    <PrioritySelect/>
                     <TopicSelect/>
-                    <DatePicker title={"Due Date"}/>
+                    <DatePicker title={"Due Date"} className={"px-2"}/>
                 </div>
                 <DialogFooter>
                     <Button variant="primary" type={"submit"} onClick={onSubmit}>Create</Button>

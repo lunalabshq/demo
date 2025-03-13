@@ -25,7 +25,7 @@ function TopicSelect({topic}: TopicSelectProps) {
             <PopoverTrigger asChild>
                 <Button
                     data-state={open ? "open" : "closed"}
-                    className={cn("font-normal text-[13px] items-center gap-2 data-[state=open]:bg-inverted/10 data-[state=open]:text-primary", value && "px-1")}
+                    className={cn("font-normal text-[13px] items-center gap-2 data-[state=open]:bg-inverted/10 data-[state=open]:text-primary px-2", value && "px-1")}
                 >
                     {value ? <TopicBadge topicName={value}/> : <Tag size={12} />}
                     {value ? "" : "Topic"}

@@ -1,11 +1,12 @@
 
 export interface Project {
-    title: string;
-    description: string;
-    url: string;
-    status: string;
-    deadline: string;
-    topic: string;
+    title: string
+    description: string
+    url: string
+    status: string
+    deadline: string
+    topic: string
+    priority: string
 }
 
 export const projects: Project[] = [
@@ -15,7 +16,8 @@ export const projects: Project[] = [
         url: "",
         status: "Finished",
         deadline: "2025-04-22",
-        topic: "Marketing"
+        topic: "Marketing",
+        priority: "High"
     },
     {
         title: "Dashboard UI Design",
@@ -23,7 +25,8 @@ export const projects: Project[] = [
         url: "",
         status: "In Progress",
         deadline: "2025-07-31",
-        topic: "Design"
+        topic: "Design",
+        priority: "Medium"
     },
     {
         title: "App Development",
@@ -31,7 +34,8 @@ export const projects: Project[] = [
         url: "",
         status: "Not Started",
         deadline: "2025-06-12",
-        topic: "Development"
+        topic: "Development",
+        priority: "Low"
     },
     {
         title: "Backend Testing",
@@ -39,7 +43,8 @@ export const projects: Project[] = [
         url: "",
         status: "In Progress",
         deadline: "2025-08-15",
-        topic: "Development"
+        topic: "Development",
+        priority: "Medium"
     },
     {
         title: "Marketing Campaign",
@@ -47,6 +52,7 @@ export const projects: Project[] = [
         url: "",
         status: "Not Started",
         deadline: "2025-09-30",
-        topic: "Marketing"
+        topic: "Marketing",
+        priority: "Medium"
     }
 ]

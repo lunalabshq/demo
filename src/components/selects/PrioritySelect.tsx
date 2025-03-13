@@ -1,21 +1,30 @@
 "use client"
 
-import {Button, Command, CommandEmpty,
-    CommandGroup, CommandInput, CommandItem, CommandList, Popover, PopoverContent, PopoverTrigger} from "lunalabs-ui"
-import {allStatus, Status, StatusIcon} from "@/components/StatusIcon"
-import {CheckIcon, Hexagon} from "lucide-react"
+import {
+    Button,
+    Command,
+    CommandGroup,
+    CommandItem,
+    CommandList,
+    Popover,
+    PopoverContent,
+    PopoverTrigger
+} from "lunalabs-ui"
+import {CheckIcon, Tag, TriangleAlert} from "lucide-react"
 import {useState} from "react"
+import {cn} from "@/lib/utils"
+import {allPriorities, Priority, PriorityBadge} from "@/components/PriorityBadge"
 
-interface StatusSelectProps {
-    status?: Status | null
+interface PrioritySelectProps {
+    priority?: Priority | null
 }
 
-function StatusSelect({status}: StatusSelectProps) {
-    const [value, setValue] = useState<string| null>(status?.name ?? null)
+function PrioritySelect({priority}: PrioritySelectProps) {
+    const [value, setValue] = useState<string| null>(priority?.name ?? null)
     const [open, setOpen] = useState(false)
 
-    const handleStatusChange = (status: string) => {
-        setValue(status)
+    const handlePriorityChange = (priority: string) => {
+        setValue(priority)
         setOpen(false)
     }
 
@@ -24,28 +33,26 @@ function StatusSelect({status}: StatusSelectProps) {
             <PopoverTrigger asChild>
                 <Button
                     data-state={open ? "open" : "closed"}
-                    className={"font-normal text-[13px] items-center gap-2 data-[state=open]:bg-inverted/10 data-[state=open]:text-primary px-2"}
+                    className={cn("font-normal text-[13px] items-center gap-2 data-[state=open]:bg-inverted/10 data-[state=open]:text-primary px-2")}
                 >
-                    {value ? <StatusIcon statusName={value}/> : <Hexagon size={12} />}
-                    {value ?? "Status"}
+                    {value ? <PriorityBadge priorityName={value}/> : <TriangleAlert size={12} />}
+                    {value ? "" : "Priority"}
                 </Button>
             </PopoverTrigger>
             <PopoverContent className={"border-0 p-0 w-[160px]"} align={"start"}>
                 <Command>
-                    <CommandInput placeholder="Select a status..." />
                     <CommandList>
-                        <CommandEmpty>No status found.</CommandEmpty>
                         <CommandGroup>
-                            {allStatus.map((item) => (
+                            {allPriorities.map((item) => (
                                 <CommandItem
                                     key={item.name}
                                     value={item.name}
-                                    onSelect={() => handleStatusChange(item.name)}
+                                    onSelect={() => handlePriorityChange(item.name)}
                                     className="flex items-center justify-between"
                                 >
                                     <div className="flex items-center gap-2">
-                                        <item.icon />
-                                        {item.name}
+                                        <item.badge />
+                                        <span>{item.name}</span>
                                     </div>
                                     {value === item.name && <CheckIcon size={16} className="ml-auto" />}
                                 </CommandItem>
@@ -58,4 +65,4 @@ function StatusSelect({status}: StatusSelectProps) {
     )
 }
 
-export { StatusSelect }
+export { PrioritySelect }

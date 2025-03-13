@@ -90,8 +90,8 @@ function CustomSidebar() {
         <Sidebar collapsible="icon" className={"sticky border-none"}>
             <SidebarHeader>
                 <SidebarMenu>
-                    <SidebarMenuItem className={"flex items-center justify-between gap-4 h-8 pt-3 group-data-[collapsible=icon]:hidden"}>
-                        <div className={"w-full h-8 flex items-center justify-center bg-brand/20 text-secondary rounded-md font-mono shadow-md"}>
+                    <SidebarMenuItem className={"flex items-center justify-between gap-4 h-8 px-2 pt-3 group-data-[collapsible=icon]:hidden"}>
+                        <div className={"w-full h-8 flex items-center text-secondary font-mono"}>
                             Acme Inc.
                         </div>
                         <ProjectDialog/>
@@ -166,7 +166,7 @@ function CustomSidebar() {
                                         <Clover size={12} className={"text-[#68db53]"}/>
                                         <p className={"text-[#68db53]"}>Basic</p>
                                     </div>
-                                    <p className={"text-info underline cursor-pointer transition-all hover:-translate-y-0.5"}>Upgrade now</p>
+                                    <p className={"w-max text-info underline cursor-pointer transition-all hover:-translate-y-0.5"}>Upgrade now</p>
                                 </div>
                                 <X size={20} className={"cursor-pointer"} onClick={() => setShowPlanPanel(false)}/>
                             </div>

@@ -11,12 +11,13 @@ import {
     VisibilityState
 } from "@tanstack/table-core"
 import {Button, Checkbox, Input, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "lunalabs-ui"
-import {ArrowUpDown, ChevronDown, ChevronsUpDown, ChevronUp, MoreHorizontal} from "lucide-react"
+import {ChevronDown, ChevronUp, MoreHorizontal} from "lucide-react"
 import {flexRender, useReactTable} from "@tanstack/react-table"
 import {Project, projects } from "@/lib/mockup-data/projects"
 import {StatusIcon} from "@/components/StatusIcon"
 import {TopicBadge} from "@/components/TopicBadge"
 import { cn } from "@/lib/utils"
+import {PriorityBadge} from "@/components/PriorityBadge"
 
 export default function Projects() {
     const [sorting, setSorting] = useState<SortingState>([])
@@ -71,6 +72,34 @@ export default function Projects() {
             cell: ({ row }) => (
                 <div className="capitalize">{row.getValue("title")}</div>
             ),
+        },
+        {
+            accessorKey: "priority",
+            header: ({ column }) => {
+                return (
+                    <Button
+                        variant="ghost"
+                        className={"hover:bg-transparent"}
+                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                    >
+                        Priority
+                        {column.getIsSorted() && <ChevronUp size={12} className={cn("ml-0.5 text-tertiary", column.getIsSorted() === "desc" && "rotate-180 transition-all", column.getIsSorted() === "asc" && "rotate-0 transition-all")}/>}
+                    </Button>
+                )
+            },
+            cell: ({ row }) => <PriorityBadge priorityName={row.getValue("priority")}/>,
+            sortingFn: (rowA, rowB, columnId) => {
+                const priorityValues: Record<string, number> = {
+                    "Low": 1,
+                    "Medium": 2,
+                    "High": 3
+                }
+
+                const valueA = priorityValues[rowA.getValue(columnId) as string] || 0
+                const valueB = priorityValues[rowB.getValue(columnId) as string] || 0
+
+                return valueA - valueB
+            }
         },
         {
             accessorKey: "topic",

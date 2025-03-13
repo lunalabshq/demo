@@ -7,6 +7,7 @@ import type React from "react"
 import {projects} from "@/lib/mockup-data/projects"
 import {TopicBadge} from "@/components/TopicBadge"
 import { useState } from "react"
+import {PriorityBadge} from "@/components/PriorityBadge"
 
 function AssignedProjects() {
     const [openDropdownId, setOpenDropdownId] = useState<string | null>(null)
@@ -39,6 +40,7 @@ function AssignedProjects() {
                         <div className={"flex gap-4 items-center"}>
                             <StatusIcon statusName={project.status}/>
                             <div className={"text-primary"}>{project.title}</div>
+                            <PriorityBadge priorityName={project.priority}/>
                             <TopicBadge topicName={project.topic}/>
                         </div>
 

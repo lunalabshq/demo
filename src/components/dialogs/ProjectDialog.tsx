@@ -55,7 +55,7 @@ function ProjectDialog() {
                 </VisuallyHidden>
                 <div className={"flex flex-col gap-4"}>
                     <Input placeholder={"Project Name"} className={"bg-black/10 border-main/20 text-primary focus-visible:ring-0 shadow-none placeholder-white"}/>
-                    <Textarea placeholder={"Project Description"} className={"border-0 focus-visible:ring-0 shadow-none"}/>
+                    <Textarea placeholder={"Project Description"} className={"border-0 focus-visible:ring-0 shadow-none max-h-80"}/>
                 </div>
                 <div className={"flex gap-2"}>
                     <StatusSelect/>

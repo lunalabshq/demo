@@ -25,7 +25,7 @@ function AssignedProjects() {
     })
 
     return (
-        <div className={"flex flex-col gap-4 w-full bg-tertiary rounded-md p-4"}>
+        <div className={"flex flex-col gap-4 w-full bg-tertiary rounded-md p-4 border border-main/20"}>
             <div className={"flex items-center justify-between"}>
                 <p className={"font-medium text-primary"}>{`Assigned Projects (${projects.length})`}</p>
                 <Button className={"gap-2 text-sm"} variant={"ghost"} {...buttonTooltip}>

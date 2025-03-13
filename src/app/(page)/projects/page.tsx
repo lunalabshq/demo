@@ -11,7 +11,7 @@ import {
     VisibilityState
 } from "@tanstack/table-core"
 import {Button, Checkbox, Input, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "lunalabs-ui"
-import {ChevronDown, ChevronUp, MoreHorizontal} from "lucide-react"
+import {ChevronDown, ChevronUp, Filter, MoreHorizontal} from "lucide-react"
 import {flexRender, useReactTable} from "@tanstack/react-table"
 import {Project, projects } from "@/lib/mockup-data/projects"
 import {StatusIcon} from "@/components/StatusIcon"
@@ -169,16 +169,16 @@ export default function Projects() {
     return (
         <div className={"h-full w-full flex flex-col justify-between gap-4"}>
             <div className={"flex flex-col gap-4"}>
-                <div className="flex items-center">
+                <div className="flex items-center gap-4">
                     <Input
                         placeholder="Filter projects..."
                         value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
                         onChange={(event) => table.getColumn("title")?.setFilterValue(event.target.value)}
                         className="max-w-sm"
                     />
-                    <Button variant="default" className="ml-auto items-center">
+                    <Button variant="default" className="items-center">
+                        <Filter size={16} className={"mr-2"}/>
                         Columns
-                        <ChevronDown size={16} className={"ml-1"}/>
                     </Button>
                 </div>
                 <div className="rounded-md">

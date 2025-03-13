@@ -44,7 +44,7 @@ function ProjectBarChart() {
     ), [])
 
     return (
-        <div className={"flex flex-col gap-4 w-full h-full justify-between bg-tertiary rounded-md overflow-hidden p-4"}>
+        <div className={"flex flex-col gap-4 w-full h-full justify-between bg-tertiary border border-main/20 rounded-md overflow-hidden p-4"}>
             <div className={"flex items-center justify-between"}>
                 <div className={"flex gap-2 items-center"}>
                     <p className={"font-medium text-primary"}>Projects completed</p>

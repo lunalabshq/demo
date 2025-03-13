@@ -1,5 +1,6 @@
 
 export interface Project {
+    id: number
     title: string
     description: string
     url: string
@@ -11,6 +12,7 @@ export interface Project {
 
 export const projects: Project[] = [
     {
+        id: 0,
         title: "Market Research",
         description: "Market research and analysis for a new product.",
         url: "",
@@ -20,6 +22,7 @@ export const projects: Project[] = [
         priority: "High"
     },
     {
+        id: 1,
         title: "Dashboard UI Design",
         description: "Designing a new user interface for the mobile app.",
         url: "",
@@ -29,6 +32,7 @@ export const projects: Project[] = [
         priority: "Medium"
     },
     {
+        id: 2,
         title: "App Development",
         description: "Current state of development.",
         url: "",
@@ -38,6 +42,7 @@ export const projects: Project[] = [
         priority: "Low"
     },
     {
+        id: 3,
         title: "Backend Testing",
         description: "Testing the new features of the app.",
         url: "",
@@ -47,6 +52,7 @@ export const projects: Project[] = [
         priority: "Medium"
     },
     {
+        id: 4,
         title: "Marketing Campaign",
         description: "Marketing campaign for the new product.",
         url: "",

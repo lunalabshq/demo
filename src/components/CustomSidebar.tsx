@@ -145,12 +145,6 @@ function CustomSidebar() {
                                 </DropdownMenu>
                             </SidebarMenuItem>
                         ))}
-                        <SidebarMenuItem>
-                            <SidebarMenuButton className="text-secondary/70">
-                                <MoreHorizontal className="text-secondary/70" />
-                                <span>More</span>
-                            </SidebarMenuButton>
-                        </SidebarMenuItem>
                     </SidebarMenu>
                 </SidebarGroup>
             </SidebarContent>

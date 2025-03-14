@@ -61,7 +61,7 @@ function ProjectDialog() {
                     <StatusSelect/>
                     <PrioritySelect/>
                     <TopicSelect/>
-                    <DatePicker title={"Due Date"} className={"px-2"}/>
+                    <DatePicker title={"Due Date"} className={"px-2 hover:bg-inverted/10 hover:text-primary"}/>
                 </div>
                 <DialogFooter>
                     <Button variant="primary" type={"submit"} onClick={onSubmit}>Create</Button>

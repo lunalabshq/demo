@@ -6,7 +6,7 @@ import {
     Breadcrumb,
     BreadcrumbItem,
     BreadcrumbPage,
-    Input,
+    Input, KeyboardShortcut,
     SidebarInset,
     SidebarProvider,
     SidebarTrigger, ToastProvider
@@ -30,7 +30,7 @@ export default function Layout({children}: Readonly<{ children: ReactNode }>) {
                             </Breadcrumb>
                         </div>
                         <div className={"flex items-center gap-4"}>
-                            <Input className="w-80 bg-secondary shadow-none" placeholder="Search..."/>
+                            <Input className="w-72 bg-secondary shadow-none" placeholder="Search..."/>
                             <Notification/>
                         </div>
 
